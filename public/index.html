@@ -1,0 +1,1537 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MADBASS by Nadoti | Gerador de Basslines MIDI para Tech House (VST3)</title>
+  <meta name="description" content="O primeiro plugin gerador de basslines MIDI feito exclusivamente para Tech House. Puxe a alavanca, trave notas com STABILIZE e arraste grooves infinitos direto para a sua DAW.">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="./images/handle.png">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            crt: {
+              DEFAULT: '#00ff66',
+              dim: '#00b347',
+              dark: '#031508',
+              glow: 'rgba(0, 255, 102, 0.4)'
+            },
+            amber: {
+              crt: '#ffb000',
+              glow: 'rgba(255, 176, 0, 0.45)'
+            },
+            metal: {
+              800: '#1a1f26',
+              850: '#14181e',
+              900: '#0d1015',
+              950: '#07090c',
+              border: '#2e3744'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts Fallback & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Saira+Stencil+One&family=Share+Tech+Mono&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body class="bg-metal-950 text-slate-200 font-['Inter',sans-serif] antialiased selection:bg-crt selection:text-black">
+
+  <!-- =========================================================================
+       BARRA DE AVISO SUPERIOR (ESCASSES / LANÇAMENTO)
+       ========================================================================= -->
+  <div class="bg-gradient-to-r from-red-700 via-red-600 to-red-700 py-2.5 px-4 text-center border-b border-red-500/50 text-white font-extrabold text-xs md:text-sm tracking-wider uppercase flex items-center justify-center gap-2.5 shadow-md relative z-50">
+    <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-black/40 text-[11px] font-mono-tech border border-white/20 text-yellow-300">
+      <span class="w-2 h-2 rounded-full bg-yellow-400 animate-ping"></span>
+      ALERTA DE LANÇAMENTO
+    </span>
+    <span class="font-bold text-white drop-shadow-sm">
+      OFERTA OFICIAL V0.1.0 — DESCONTO DE 75% + 2 BÔNUS EXCLUSIVOS DISPONÍVEIS POR TEMPO LIMITADO
+    </span>
+    <span class="hidden lg:inline text-white/90 font-mono-tech text-xs bg-red-800/80 px-2 py-0.5 rounded border border-red-400/40">
+      APENAS R$ 49,90
+    </span>
+  </div>
+
+  <!-- =========================================================================
+       NAVBAR
+       ========================================================================= -->
+  <header class="sticky top-0 z-50 bg-metal-950/90 backdrop-blur-md border-b border-metal-border/60">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <!-- Logo Tipográfico Oficial (Sem Imagem) -->
+      <a href="#" class="flex items-center gap-2 group select-none">
+        <div class="flex items-baseline gap-2">
+          <span class="font-stencil text-2xl sm:text-3xl font-normal text-white tracking-wider group-hover:text-crt transition drop-shadow-[0_2px_12px_rgba(255,255,255,0.2)]">
+            MADBASS
+          </span>
+          <span class="font-mono-tech text-xs sm:text-sm text-slate-400 lowercase tracking-tight group-hover:text-slate-300 transition">
+            by <span class="text-slate-300 font-medium">Nadoti</span>
+          </span>
+        </div>
+        <span class="inline-block w-2 h-2 rounded-full bg-crt shadow-[0_0_8px_#00ff66] animate-pulse ml-0.5"></span>
+      </a>
+
+      <!-- Menu Links (Desktop) -->
+      <nav class="hidden md:flex items-center gap-8 text-sm font-semibold tracking-wide text-slate-300">
+        <a href="#simulador" class="hover:text-crt transition flex items-center gap-1.5 text-crt">
+          <span class="w-1.5 h-1.5 rounded-full bg-crt"></span>
+          Testar ao Vivo
+        </a>
+        <a href="#como-funciona" class="hover:text-crt transition">Como Funciona</a>
+        <a href="#recursos" class="hover:text-crt transition">Recursos</a>
+        <a href="#workflow" class="hover:text-crt transition">Workflow</a>
+        <a href="#comparativo" class="hover:text-crt transition">Comparativo</a>
+        <a href="#faq" class="hover:text-crt transition">FAQ</a>
+      </nav>
+
+      <!-- Botão CTA Navbar -->
+      <div class="flex items-center gap-4">
+        <div class="hidden lg:flex flex-col text-right">
+          <span class="text-[11px] uppercase tracking-wider text-slate-400 font-mono-tech">Apenas R$ 49,90</span>
+          <span class="text-xs text-crt font-bold">Acesso Vitalício</span>
+        </div>
+        <a href="#comprar" class="relative group inline-flex items-center justify-center px-5 py-2.5 text-sm font-bold text-black uppercase tracking-wider bg-crt hover:bg-emerald-400 rounded transition shadow-[0_0_15px_rgba(0,255,102,0.4)] hover:shadow-[0_0_25px_rgba(0,255,102,0.7)]">
+          <span class="font-stencil">Comprar Agora</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- =========================================================================
+       HERO SECTION
+       ========================================================================= -->
+  <section class="relative pt-12 pb-20 overflow-hidden">
+    <!-- Grid & Ambient Background Glows -->
+    <div class="absolute inset-0 bg-[radial-gradient(#1f2937_1px,transparent_1px)] [background-size:24px_24px] opacity-20 pointer-events-none"></div>
+    <div class="absolute -top-32 left-1/2 -translate-x-1/2 w-[700px] h-[450px] bg-crt/10 blur-[130px] rounded-full pointer-events-none"></div>
+    <div class="absolute top-96 right-10 w-[400px] h-[400px] bg-amber-500/10 blur-[120px] rounded-full pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="text-center max-w-4xl mx-auto">
+        <!-- Tagline / Badge -->
+        <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-metal-900 border border-metal-border shadow-inner mb-6">
+          <span class="w-2.5 h-2.5 rounded-full bg-crt animate-pulse"></span>
+          <span class="text-xs uppercase tracking-widest font-mono-tech text-crt">VST3 para Windows 10/11 (64-bit) · By Nadoti (NLabs)</span>
+        </div>
+
+        <!-- Headline Principal -->
+        <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white uppercase leading-[1.08] mb-6 font-condensed">
+          Crie Basslines <span class="text-transparent bg-clip-text bg-gradient-to-r from-crt via-emerald-300 to-amber-crt">Rolantes, Pesadas e Hipnóticas</span> de Tech House em Segundos.
+        </h1>
+
+        <!-- Subheadline de Alto Impacto -->
+        <p class="text-lg sm:text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed mb-8">
+          Chega de perder horas travado no piano roll encarando a tela da DAW. O <strong class="text-white">MadBass</strong> é o gerador VST3 inteligente com <span class="text-crt font-bold">DNA 100% puro de Tech House</span>: notas no off-beat, tônica forte, slides e ghost notes sem embolar com o bumbo. Puxe a alavanca, trave as notas com o <strong class="text-amber-crt">STABILIZE</strong> e arraste o MIDI direto para o seu synth favorito.
+        </p>
+
+        <!-- CTAs Hero -->
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
+          <a href="#comprar" class="w-full sm:w-auto px-8 py-4 bg-crt hover:bg-emerald-400 text-black font-extrabold text-lg uppercase tracking-wider rounded transition shadow-[0_0_25px_rgba(0,255,102,0.5)] hover:shadow-[0_0_35px_rgba(0,255,102,0.8)] pulse-glow-green flex items-center justify-center gap-3">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            <span class="font-stencil">Quero o MadBass com Desconto</span>
+          </a>
+          <a href="#simulador" class="w-full sm:w-auto px-6 py-4 bg-metal-900 hover:bg-metal-850 text-slate-200 border border-metal-border font-bold text-base uppercase tracking-wider rounded transition flex items-center justify-center gap-2 hover:border-crt">
+            <svg class="w-5 h-5 text-crt" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            <span>Experimentar o Plugin ao Vivo</span>
+          </a>
+        </div>
+
+        <!-- Micro Garantias -->
+        <div class="flex flex-wrap items-center justify-center gap-6 sm:gap-10 text-xs font-mono-tech text-slate-400">
+          <div class="flex items-center gap-2">
+            <svg class="w-4 h-4 text-crt" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+            <span>Compatível com Ableton, FL Studio, Reaper, Bitwig</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <svg class="w-4 h-4 text-crt" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+            <span>Garantia Incondicional de 7 Dias</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <svg class="w-4 h-4 text-crt" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+            <span>Instalação Rápida em 1 Minuto</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SEÇÃO DO SIMULADOR INTERATIVO (EXPERIMENTE O MADBASS NO NAVEGADOR)
+       ========================================================================= -->
+  <section id="simulador" class="py-16 bg-metal-900 border-y border-metal-border relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-10">
+        <span class="text-crt font-mono-tech uppercase tracking-widest text-xs font-bold bg-crt/10 px-3 py-1 rounded-full border border-crt/30">
+          Simulador Interativo Real
+        </span>
+        <h2 class="text-3xl sm:text-5xl font-extrabold uppercase font-condensed tracking-tight text-white mt-3">
+          Puxe a Alavanca e Sinta o Poder do MadBass Agora
+        </h2>
+        <p class="text-slate-400 text-sm sm:text-base mt-2">
+          Esta é uma réplica funcional do plugin rodando no seu navegador com síntese de áudio real! Clique na alavanca para gerar novos grooves, ouça com o botão <strong>PREVIEW</strong>, clique nas notas da CRT para <strong>TRAVAR (STABILIZE)</strong> e baixe o arquivo MIDI real no botão verde.
+        </p>
+      </div>
+
+      <!-- PLUGIN UI CONTAINER -->
+      <div class="relative max-w-5xl mx-auto bg-gradient-to-b from-[#242b36] via-[#171b22] to-[#0e1116] rounded-xl p-4 sm:p-6 shadow-[0_20px_60px_rgba(0,0,0,0.9)] border-2 border-[#3c4756]">
+        
+        <!-- Parafusos nos Cantos -->
+        <div class="absolute top-3 left-3 rivet"></div>
+        <div class="absolute top-3 right-3 rivet"></div>
+        <div class="absolute bottom-3 left-3 rivet"></div>
+        <div class="absolute bottom-3 right-3 rivet"></div>
+
+        <!-- Header da Interface do Plugin -->
+        <div class="flex flex-col sm:flex-row items-center justify-between pb-4 mb-4 border-b border-metal-border/80 gap-3">
+          <div class="flex items-center gap-3">
+            <img src="./images/madbass_header_logo.jpg" alt="MadBass Logo" class="h-9 object-contain">
+            <span class="text-xs text-slate-400 font-mono-tech hidden sm:inline">| SPECIMEN ENGINE v0.1.0</span>
+          </div>
+
+          <!-- Quick Audio Controls (Kick Toggle & Master) -->
+          <div class="flex items-center gap-4 bg-metal-950/80 px-4 py-2 rounded-lg border border-metal-border text-xs font-mono-tech">
+            <label class="flex items-center gap-2 cursor-pointer text-slate-300 hover:text-white">
+              <input type="checkbox" id="toggleKickSound" checked class="accent-crt w-4 h-4 rounded">
+              <span>BUMBO KICK 4x4 (TECH HOUSE)</span>
+            </label>
+            <span class="text-metal-border">|</span>
+            <div class="flex items-center gap-1.5 text-crt">
+              <span class="w-2 h-2 rounded-full bg-crt animate-pulse"></span>
+              <span>AUDIO READY</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- MAIN PLUGIN GRID -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch">
+          
+          <!-- COLUNA 1: ALAVANCA E LEDS (4 colunas) -->
+          <div class="lg:col-span-3 bg-metal-950/90 rounded-lg p-4 border border-metal-border flex flex-col items-center justify-between shadow-inner">
+            <div class="w-full text-center">
+              <span class="font-stencil text-xs uppercase tracking-widest text-slate-400">GENERATE LEVER</span>
+            </div>
+
+            <!-- Mecanismo da Alavanca -->
+            <div class="my-3 flex items-center justify-center gap-6">
+              <!-- Alavanca Física -->
+              <div id="simLever" class="lever-container relative flex flex-col items-center group" title="Clique para gerar um novo groove!">
+                <div class="w-14 h-48 bg-[#181a1f] border-2 border-[#3c4756] rounded-lg p-1.5 flex flex-col items-center relative shadow-inner">
+                  <!-- Hazard Stripes no Fundo do Trilho -->
+                  <div class="absolute inset-x-2 top-2 bottom-2 hazard-stripes-slim opacity-30 rounded"></div>
+                  <!-- Trilho Central -->
+                  <div class="w-2 h-full bg-black/80 rounded-full z-0"></div>
+                  <!-- Manopla / Cabo da Alavanca -->
+                  <div class="lever-handle absolute top-2 w-11 h-20 rounded-md hazard-stripes shadow-[0_5px_15px_rgba(0,0,0,0.8)] border border-yellow-300 cursor-pointer flex flex-col items-center justify-center z-10 group-hover:brightness-110">
+                    <div class="w-8 h-2 bg-black/60 rounded mb-1"></div>
+                    <div class="w-8 h-2 bg-black/60 rounded mb-1"></div>
+                    <div class="w-8 h-2 bg-black/60 rounded"></div>
+                  </div>
+                </div>
+                <span class="text-[10px] font-mono-tech text-amber-crt mt-2 tracking-wider uppercase font-bold group-hover:text-crt transition">PUXAR ALAVANCA</span>
+              </div>
+
+              <!-- LEDs de Modo -->
+              <div class="flex flex-col gap-4 bg-metal-900/90 p-2.5 rounded border border-metal-border">
+                <!-- Modo Random -->
+                <button id="btnModeRANDOM" class="flex flex-col items-center gap-1 group" title="Cria um pattern novo do zero">
+                  <div id="ledModeRANDOM" class="w-3.5 h-3.5 rounded-full led-red-on"></div>
+                  <span class="text-[10px] font-mono-tech text-slate-300 font-bold group-hover:text-white">RANDOM</span>
+                </button>
+                <!-- Modo Evolve -->
+                <button id="btnModeEVOLVE" class="flex flex-col items-center gap-1 group" title="Varia o pattern atual mantendo o DNA">
+                  <div id="ledModeEVOLVE" class="w-3.5 h-3.5 rounded-full led-red-off"></div>
+                  <span class="text-[10px] font-mono-tech text-slate-400 font-bold group-hover:text-white">EVOLVE</span>
+                </button>
+                <!-- Modo Humanize -->
+                <button id="btnModeHUMANIZE" class="flex flex-col items-center gap-1 group" title="Varia micro-timing e velocity">
+                  <div id="ledModeHUMANIZE" class="w-3.5 h-3.5 rounded-full led-red-off"></div>
+                  <span class="text-[10px] font-mono-tech text-slate-400 font-bold group-hover:text-white">HUMANIZE</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Dica do modo ativo -->
+            <div class="text-[11px] text-slate-400 font-mono-tech text-center bg-black/40 px-2 py-1 rounded w-full border border-metal-border/50">
+              Clique na alavanca para acionar
+            </div>
+          </div>
+
+          <!-- COLUNA 2: DISPLAY CRT & PIANO ROLL (6 colunas) -->
+          <div class="lg:col-span-6 flex flex-col gap-2">
+            <!-- DISPLAY CRT -->
+            <div class="crt-screen rounded-lg p-3 flex flex-col justify-between h-[290px] relative">
+              <!-- Top Bar do CRT -->
+              <div class="flex items-center justify-between border-b border-crt/25 pb-1 text-xs font-mono-tech text-crt z-20">
+                <span id="crtSpecimenTitle" class="tracking-wider">SPECIMEN No. 104 | F MINOR | 2 BARS | 128 BPM</span>
+                <span class="text-xs text-amber-crt animate-pulse" id="crtLockNotice" style="display: none;">[LOCK MODE ON]</span>
+              </div>
+
+              <!-- Canvas do Piano Roll -->
+              <div class="relative flex-1 w-full h-[180px] my-1">
+                <canvas id="crtCanvas" class="w-full h-full cursor-crosshair block"></canvas>
+              </div>
+
+              <!-- Bottom Bar do CRT (PREVIEW + VOLUME) -->
+              <div class="flex items-center justify-between border-t border-crt/25 pt-2 z-20">
+                <div class="flex items-center gap-3">
+                  <button id="crtBtnPreview" class="px-3 py-1 bg-emerald-950/70 border border-emerald-500 text-emerald-400 text-xs font-mono-tech rounded hover:bg-emerald-900 transition flex items-center gap-1.5">
+                    ► PREVIEW
+                  </button>
+                  <div class="flex items-center gap-2 text-xs font-mono-tech text-crt">
+                    <span>VOL</span>
+                    <input id="crtVolSlider" type="range" min="0" max="1" step="0.05" value="0.75" class="w-20 accent-crt h-1 bg-emerald-950 rounded cursor-pointer">
+                  </div>
+                </div>
+                <div class="text-[11px] font-mono-tech text-emerald-400/80 hidden sm:block">
+                  CLIQUE NAS NOTAS P/ TRAVAR
+                </div>
+              </div>
+            </div>
+
+            <!-- SUB-PANEL: MENSAGEM DE STATUS & COMANDOS -->
+            <div class="grid grid-cols-2 gap-2 text-xs font-mono-tech">
+              <div class="bg-black/80 border border-metal-border rounded p-2 flex items-center justify-between">
+                <span class="text-slate-400">STATUS:</span>
+                <span id="simStatusText" class="text-crt font-bold tracking-wider">SYSTEM LIVE</span>
+              </div>
+              <div class="bg-black/80 border border-metal-border rounded p-2 flex items-center justify-between">
+                <span class="text-slate-400">TEMPO:</span>
+                <span class="text-amber-crt font-bold">128 BPM (HOST SYNC)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- COLUNA 3: DRAG MIDI, ARCHIVE, STABILIZE & LOG (3 colunas) -->
+          <div class="lg:col-span-3 flex flex-col justify-between gap-3">
+            
+            <!-- DRAG MIDI ZONE -->
+            <div id="simDragMidi" draggable="true" class="bg-gradient-to-b from-emerald-950/40 to-black border-2 border-dashed border-crt/80 rounded-lg p-3 text-center cursor-pointer hover:bg-emerald-900/30 transition drag-zone-active group" title="Arraste para a DAW ou clique para baixar o arquivo .mid (3 downloads grátis)">
+              <div class="w-8 h-8 mx-auto mb-1 rounded-full bg-crt/20 border border-crt flex items-center justify-center text-crt group-hover:scale-110 transition">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+              </div>
+              <span class="font-stencil text-xs text-crt uppercase tracking-wider block">DRAG MIDI</span>
+              <span class="text-[10px] font-mono-tech text-slate-300 block">CLIQUE P/ BAIXAR OU ARRASTE</span>
+              <span id="dragMidiRemaining" class="text-[9px] font-mono-tech text-emerald-400 block mt-1">3 de 3 downloads gratuitos restantes</span>
+            </div>
+
+            <!-- BOTÕES ARCHIVE E STABILIZE -->
+            <div class="grid grid-cols-2 gap-2">
+              <!-- Archive Button -->
+              <button id="btnArchive" class="bg-metal-950 border border-metal-border hover:border-slate-300 text-slate-300 rounded p-2 flex flex-col items-center justify-center gap-1 transition">
+                <span class="text-xs font-stencil uppercase">ARCHIVE</span>
+                <span class="text-[9px] font-mono-tech text-slate-400">GUARDAR ★</span>
+              </button>
+
+              <!-- Stabilize Button -->
+              <button id="btnStabilize" class="bg-metal-950 border border-metal-border hover:border-amber-500 text-slate-300 rounded p-2 flex flex-col items-center justify-center gap-1 transition">
+                <div class="flex items-center gap-1.5">
+                  <div id="ledStabilize" class="w-2.5 h-2.5 rounded-full bg-stone-800"></div>
+                  <span class="text-xs font-stencil uppercase text-amber-crt">STABILIZE</span>
+                </div>
+                <span class="text-[9px] font-mono-tech text-slate-400">TRAVAR NOTAS</span>
+              </button>
+            </div>
+
+            <!-- SPECIMEN LOG LIST -->
+            <div class="bg-metal-950/95 border border-metal-border rounded-lg p-2.5 flex-1 flex flex-col justify-between">
+              <div class="flex items-center justify-between border-b border-metal-border/80 pb-1 mb-1">
+                <span class="text-[10px] font-stencil uppercase tracking-wider text-slate-400">SPECIMEN LOG</span>
+                <span class="text-[9px] font-mono-tech text-slate-500">ÚLTIMOS 12</span>
+              </div>
+              <div id="specimenLogList" class="space-y-0.5 overflow-y-auto max-h-[85px] pr-1">
+                <!-- Inserido dinamicamente via JS -->
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- FAIXA INFERIOR: OS 6 CONTROLES (KNOBS) -->
+        <div class="mt-6 pt-5 border-t border-metal-border/80">
+          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4 text-center">
+            
+            <!-- KNOB 1: KEY -->
+            <div class="flex flex-col items-center gap-2">
+              <span class="text-[11px] font-stencil uppercase tracking-wider text-slate-400">KEY</span>
+              <div id="knobKey" class="w-14 h-14 knob-wheel relative shadow-lg" title="Arraste para cima/baixo ou use a roda do mouse">
+                <div class="knob-pointer"></div>
+              </div>
+              <div class="flex items-center gap-1">
+                <button id="btnKeyPrev" class="w-5 h-5 bg-metal-900 border border-metal-border hover:border-crt text-slate-300 rounded text-[10px] font-bold flex items-center justify-center transition" title="Diminuir Tom">−</button>
+                <div class="bg-black border border-metal-border rounded px-2.5 py-0.5 text-xs font-mono-tech text-crt min-w-[42px]" id="valKey">
+                  F
+                </div>
+                <button id="btnKeyNext" class="w-5 h-5 bg-metal-900 border border-metal-border hover:border-crt text-slate-300 rounded text-[10px] font-bold flex items-center justify-center transition" title="Aumentar Tom">+</button>
+              </div>
+            </div>
+
+            <!-- KNOB 2: SCALE -->
+            <div class="flex flex-col items-center gap-2">
+              <span class="text-[11px] font-stencil uppercase tracking-wider text-slate-400">SCALE</span>
+              <div id="knobScale" class="w-14 h-14 knob-wheel relative shadow-lg" title="Arraste para cima/baixo ou use a roda do mouse">
+                <div class="knob-pointer"></div>
+              </div>
+              <div class="flex items-center gap-1">
+                <button id="btnScalePrev" class="w-5 h-5 bg-metal-900 border border-metal-border hover:border-crt text-slate-300 rounded text-[10px] font-bold flex items-center justify-center transition" title="Escala Anterior">−</button>
+                <div class="bg-black border border-metal-border rounded px-2 py-0.5 text-[11px] font-mono-tech text-crt min-w-[62px]" id="valScale">
+                  MINOR
+                </div>
+                <button id="btnScaleNext" class="w-5 h-5 bg-metal-900 border border-metal-border hover:border-crt text-slate-300 rounded text-[10px] font-bold flex items-center justify-center transition" title="Próxima Escala">+</button>
+              </div>
+            </div>
+
+            <!-- KNOB 3: BARS -->
+            <div class="flex flex-col items-center gap-2">
+              <span class="text-[11px] font-stencil uppercase tracking-wider text-slate-400">BARS</span>
+              <div id="knobBars" class="w-14 h-14 knob-wheel relative shadow-lg" title="Arraste para cima/baixo ou use a roda do mouse">
+                <div class="knob-pointer"></div>
+              </div>
+              <div class="flex items-center gap-1">
+                <button id="btnBarsPrev" class="w-5 h-5 bg-metal-900 border border-metal-border hover:border-crt text-slate-300 rounded text-[10px] font-bold flex items-center justify-center transition" title="Diminuir Compassos">−</button>
+                <div class="bg-black border border-metal-border rounded px-2.5 py-0.5 text-xs font-mono-tech text-crt min-w-[36px]" id="valBars">
+                  2
+                </div>
+                <button id="btnBarsNext" class="w-5 h-5 bg-metal-900 border border-metal-border hover:border-crt text-slate-300 rounded text-[10px] font-bold flex items-center justify-center transition" title="Aumentar Compassos">+</button>
+              </div>
+            </div>
+
+            <!-- KNOB 4: DENSITY -->
+            <div class="flex flex-col items-center gap-2">
+              <span class="text-[11px] font-stencil uppercase tracking-wider text-slate-400">DENSITY</span>
+              <div id="knobDensity" class="w-14 h-14 knob-wheel relative shadow-lg" title="Arraste para cima/baixo ou use a roda do mouse">
+                <div class="knob-pointer"></div>
+              </div>
+              <div class="flex items-center gap-1">
+                <button id="btnDensityPrev" class="w-5 h-5 bg-metal-900 border border-metal-border hover:border-crt text-slate-300 rounded text-[10px] font-bold flex items-center justify-center transition" title="Menos Notas">−</button>
+                <div class="bg-black border border-metal-border rounded px-2 py-0.5 text-xs font-mono-tech text-crt min-w-[42px]" id="valDensity">
+                  0.55
+                </div>
+                <button id="btnDensityNext" class="w-5 h-5 bg-metal-900 border border-metal-border hover:border-crt text-slate-300 rounded text-[10px] font-bold flex items-center justify-center transition" title="Mais Notas">+</button>
+              </div>
+            </div>
+
+            <!-- KNOB 5: SWING -->
+            <div class="flex flex-col items-center gap-2">
+              <span class="text-[11px] font-stencil uppercase tracking-wider text-slate-400">SWING</span>
+              <div id="knobSwing" class="w-14 h-14 knob-wheel relative shadow-lg" title="Arraste para cima/baixo ou use a roda do mouse">
+                <div class="knob-pointer"></div>
+              </div>
+              <div class="flex items-center gap-1">
+                <button id="btnSwingPrev" class="w-5 h-5 bg-metal-900 border border-metal-border hover:border-crt text-slate-300 rounded text-[10px] font-bold flex items-center justify-center transition" title="Menos Balanço">−</button>
+                <div class="bg-black border border-metal-border rounded px-2 py-0.5 text-xs font-mono-tech text-crt min-w-[42px]" id="valSwing">
+                  0.10
+                </div>
+                <button id="btnSwingNext" class="w-5 h-5 bg-metal-900 border border-metal-border hover:border-crt text-slate-300 rounded text-[10px] font-bold flex items-center justify-center transition" title="Mais Balanço">+</button>
+              </div>
+            </div>
+
+            <!-- KNOB 6: DRAG OCT -->
+            <div class="flex flex-col items-center gap-2">
+              <span class="text-[11px] font-stencil uppercase tracking-wider text-slate-400">DRAG OCT</span>
+              <div id="knobDragOct" class="w-14 h-14 knob-wheel relative shadow-lg" title="Arraste para cima/baixo ou use a roda do mouse">
+                <div class="knob-pointer"></div>
+              </div>
+              <div class="flex items-center gap-1">
+                <button id="btnDragOctPrev" class="w-5 h-5 bg-metal-900 border border-metal-border hover:border-crt text-slate-300 rounded text-[10px] font-bold flex items-center justify-center transition" title="Oitava Abaixo">−</button>
+                <div class="bg-black border border-metal-border rounded px-2.5 py-0.5 text-xs font-mono-tech text-crt min-w-[36px]" id="valDragOct">
+                  0
+                </div>
+                <button id="btnDragOctNext" class="w-5 h-5 bg-metal-900 border border-metal-border hover:border-crt text-slate-300 rounded text-[10px] font-bold flex items-center justify-center transition" title="Oitava Acima">+</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Callout após testar o plugin -->
+      <div class="mt-8 text-center max-w-2xl mx-auto bg-black/60 border border-metal-border rounded-lg p-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="text-left">
+          <h4 class="text-sm font-bold text-white uppercase font-condensed">Curtiu o resultado do simulador?</h4>
+          <p class="text-xs text-slate-400">Dentro da sua DAW, o MadBass roda a 64-bits com latência zero e processamento JUCE nativo.</p>
+        </div>
+        <a href="#comprar" class="px-5 py-2.5 bg-crt hover:bg-emerald-400 text-black font-extrabold text-xs uppercase tracking-wider rounded transition whitespace-nowrap">
+          Garantir Meu Plugin VST3
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  
+  <!-- =========================================================================
+       SEÇÃO: OUÇA O MADBASS EM AÇÃO (PRESETS & ESTILOS DE TECH HOUSE)
+       ========================================================================= -->
+  <section class="py-16 bg-metal-950 border-t border-metal-border">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <span class="text-crt font-mono-tech uppercase tracking-widest text-xs font-bold bg-crt/10 px-3 py-1 rounded-full border border-crt/30">
+          Versatilidade de Pista
+        </span>
+        <h2 class="text-3xl sm:text-5xl font-extrabold uppercase font-condensed tracking-tight text-white mt-4">
+          Ouça o MadBass em Diferentes Vertentes do Tech House
+        </h2>
+        <p class="text-slate-400 text-sm sm:text-base mt-2">
+          De linhas minimalistas hipnóticas aos baixos mais pesados de festival. Clique em qualquer estilo para carregar os parâmetros direto no simulador e ouvir na hora!
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Preset 1 -->
+        <div class="bg-metal-900 border border-metal-border rounded-xl p-5 flex flex-col justify-between hover:border-crt transition group">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-xs font-mono-tech text-crt">F MINOR · 126 BPM</span>
+              <span class="text-[10px] font-mono-tech bg-metal-950 px-2 py-0.5 rounded border border-metal-border text-slate-400">MINIMAL</span>
+            </div>
+            <h3 class="text-xl font-bold font-condensed text-white uppercase group-hover:text-crt transition">1. Minimal Deep Tech</h3>
+            <p class="text-xs text-slate-400 mt-2 leading-relaxed">
+              Inspirado no som de Michael Bibi e PAWSA. Linha espaçada com tônica forte no off-beat e ghost notes sutis.
+            </p>
+          </div>
+          <button type="button" onclick="loadDemoPreset(1)" class="mt-5 w-full py-2.5 px-3 bg-metal-950 hover:bg-crt hover:text-black border border-metal-border hover:border-crt text-slate-200 text-xs font-bold font-mono-tech uppercase rounded transition flex items-center justify-center gap-2">
+            <span>► Carregar no Simulador</span>
+          </button>
+        </div>
+
+        <!-- Preset 2 -->
+        <div class="bg-metal-900 border border-metal-border rounded-xl p-5 flex flex-col justify-between hover:border-crt transition group">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-xs font-mono-tech text-crt">G MINOR · 128 BPM</span>
+              <span class="text-[10px] font-mono-tech bg-metal-950 px-2 py-0.5 rounded border border-metal-border text-slate-400">CLUB BANGER</span>
+            </div>
+            <h3 class="text-xl font-bold font-condensed text-white uppercase group-hover:text-crt transition">2. Peak-Time Rolling</h3>
+            <p class="text-xs text-slate-400 mt-2 leading-relaxed">
+              O clássico groove rolante com pressão para o drop principal. Sem colidir com o kick e com pegada firme.
+            </p>
+          </div>
+          <button type="button" onclick="loadDemoPreset(2)" class="mt-5 w-full py-2.5 px-3 bg-metal-950 hover:bg-crt hover:text-black border border-metal-border hover:border-crt text-slate-200 text-xs font-bold font-mono-tech uppercase rounded transition flex items-center justify-center gap-2">
+            <span>► Carregar no Simulador</span>
+          </button>
+        </div>
+
+        <!-- Preset 3 -->
+        <div class="bg-metal-900 border border-metal-border rounded-xl p-5 flex flex-col justify-between hover:border-crt transition group">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-xs font-mono-tech text-amber-crt">A PHRYGIAN DOM · 127 BPM</span>
+              <span class="text-[10px] font-mono-tech bg-metal-950 px-2 py-0.5 rounded border border-metal-border text-slate-400">LATIN GROOVE</span>
+            </div>
+            <h3 class="text-xl font-bold font-condensed text-white uppercase group-hover:text-amber-crt transition">3. Latin Tech House</h3>
+            <p class="text-xs text-slate-400 mt-2 leading-relaxed">
+              Escala Phrygian Dominant trazendo clima exótico, latino e envolvente. Perfeito para vocais em espanhol.
+            </p>
+          </div>
+          <button type="button" onclick="loadDemoPreset(3)" class="mt-5 w-full py-2.5 px-3 bg-metal-950 hover:bg-amber-500 hover:text-black border border-metal-border hover:border-amber-500 text-slate-200 text-xs font-bold font-mono-tech uppercase rounded transition flex items-center justify-center gap-2">
+            <span>► Carregar no Simulador</span>
+          </button>
+        </div>
+
+        <!-- Preset 4 -->
+        <div class="bg-metal-900 border border-metal-border rounded-xl p-5 flex flex-col justify-between hover:border-crt transition group">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-xs font-mono-tech text-crt">D# PHRYGIAN · 128 BPM</span>
+              <span class="text-[10px] font-mono-tech bg-metal-950 px-2 py-0.5 rounded border border-metal-border text-slate-400">DARK TECH</span>
+            </div>
+            <h3 class="text-xl font-bold font-condensed text-white uppercase group-hover:text-crt transition">4. Dark & Hypnotic</h3>
+            <p class="text-xs text-slate-400 mt-2 leading-relaxed">
+              Tensão sombria da segunda menor com slides acentuados. Ideal para sets mais tarde e pistas escuras.
+            </p>
+          </div>
+          <button type="button" onclick="loadDemoPreset(4)" class="mt-5 w-full py-2.5 px-3 bg-metal-950 hover:bg-crt hover:text-black border border-metal-border hover:border-crt text-slate-200 text-xs font-bold font-mono-tech uppercase rounded transition flex items-center justify-center gap-2">
+            <span>► Carregar no Simulador</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!-- =========================================================================
+       A DOR DO PRODUTOR: O QUE ESTÁ TRAVANDO SUAS MÚSICAS?
+       ========================================================================= -->
+  <section class="py-20 bg-metal-950 relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-red-500 font-mono-tech uppercase tracking-widest text-xs font-bold bg-red-950/30 px-3 py-1 rounded-full border border-red-500/30">
+          A Realidade dos Produtores de Tech House
+        </span>
+        <h2 class="text-3xl sm:text-5xl font-extrabold uppercase font-condensed tracking-tight text-white mt-4">
+          Por Que 90% das Tracks Nunca São Finalizadas?
+        </h2>
+        <p class="text-slate-400 text-base sm:text-lg mt-3">
+          No Tech House, o baixo é responsável por 80% do groove. Se a bassline não estiver encaixada com pressão, a track inteira soa amadora e sem energia.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Dor 1 -->
+        <div class="bg-metal-900 border border-red-900/40 p-8 rounded-xl relative shadow-lg">
+          <div class="w-12 h-12 bg-red-950/60 border border-red-500/50 rounded-lg flex items-center justify-center text-red-400 mb-6 font-bold text-xl">
+            ✕
+          </div>
+          <h3 class="text-xl font-bold text-white uppercase font-condensed mb-3">O Bloqueio do Piano Roll</h3>
+          <p class="text-slate-400 text-sm leading-relaxed">
+            Você passa horas clicando com o mouse, nota por nota, tentando achar um ritmo que funcione. O resultado? Um baixo genérico, "quadrado" e sem o swing clássico dos clubes.
+          </p>
+        </div>
+
+        <!-- Dor 2 -->
+        <div class="bg-metal-900 border border-red-900/40 p-8 rounded-xl relative shadow-lg">
+          <div class="w-12 h-12 bg-red-950/60 border border-red-500/50 rounded-lg flex items-center justify-center text-red-400 mb-6 font-bold text-xl">
+            ✕
+          </div>
+          <h3 class="text-xl font-bold text-white uppercase font-condensed mb-3">Packs de MIDI Genéricos</h3>
+          <p class="text-slate-400 text-sm leading-relaxed">
+            Você baixa packs de MIDI da internet, mas as notas brigam com o tom do seu vocal, embolam com as frequências do bumbo ou já foram usadas por milhares de outros produtores.
+          </p>
+        </div>
+
+        <!-- Dor 3 -->
+        <div class="bg-metal-900 border border-red-900/40 p-8 rounded-xl relative shadow-lg">
+          <div class="w-12 h-12 bg-red-950/60 border border-red-500/50 rounded-lg flex items-center justify-center text-red-400 mb-6 font-bold text-xl">
+            ✕
+          </div>
+          <h3 class="text-xl font-bold text-white uppercase font-condensed mb-3">Falta de Variação Inteligente</h3>
+          <p class="text-slate-400 text-sm leading-relaxed">
+            Criar variações a cada 4 ou 8 compassos sem estragar o riff principal é um pesadelo. Você copia e cola o mesmo loop a música inteira, deixando a faixa repetitiva e monótona.
+          </p>
+        </div>
+      </div>
+
+      <!-- A Tabela de Transparência do Manual: O MadBass Faz vs O MadBass Não Faz -->
+      <div class="mt-16 bg-metal-900 border border-metal-border rounded-xl p-6 sm:p-8 shadow-2xl">
+        <h3 class="text-2xl font-extrabold uppercase font-condensed text-white mb-6 text-center">
+          Transparência Total: O Que o MadBass Faz e o Que Ele Não Faz
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- O que faz -->
+          <div class="bg-emerald-950/20 border border-emerald-500/40 rounded-lg p-5">
+            <div class="flex items-center gap-2 mb-4 text-crt font-bold text-base font-condensed uppercase tracking-wider">
+              <svg class="w-5 h-5 text-crt" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+              <span>O MadBass Faz:</span>
+            </div>
+            <ul class="space-y-3 text-sm text-slate-300">
+              <li class="flex items-start gap-2">
+                <span class="text-crt font-bold">✔</span>
+                <span>Gera basslines MIDI de Tech House no tom e escala da sua escolha.</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-crt font-bold">✔</span>
+                <span>Acompanha o BPM do projeto e grava esse tempo no arquivo MIDI exportado.</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-crt font-bold">✔</span>
+                <span>Permite travar notas-chave (STABILIZE), evoluir e humanizar patterns.</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-crt font-bold">✔</span>
+                <span>Guarda favoritos e histórico determinístico dentro do projeto da sua DAW.</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- O que não faz -->
+          <div class="bg-red-950/15 border border-red-500/30 rounded-lg p-5">
+            <div class="flex items-center gap-2 mb-4 text-red-400 font-bold text-base font-condensed uppercase tracking-wider">
+              <svg class="w-5 h-5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg>
+              <span>O MadBass NÃO Faz (Foco 100% Especializado):</span>
+            </div>
+            <ul class="space-y-3 text-sm text-slate-300">
+              <li class="flex items-start gap-2">
+                <span class="text-red-400 font-bold">✖</span>
+                <span>Não é um synth completo: o som do preview serve só para escolher patterns com facilidade.</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-red-400 font-bold">✖</span>
+                <span>Não gera bumbo, percussão nem acordes: é especialista absoluto em BAIXO.</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-red-400 font-bold">✖</span>
+                <span>Não envia MIDI virtual complexo: você simplesmente arrasta o arquivo para a sua pista.</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-red-400 font-bold">✖</span>
+                <span>Não tem outros estilos: foco total e cirúrgico em <strong>Tech House</strong>.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       DEEP DIVE: FUNCIONALIDADES DETALHADAS COM AS IMAGENS OFICIAIS
+       ========================================================================= -->
+  <section id="recursos" class="py-20 bg-metal-900 border-t border-metal-border relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-20">
+        <span class="text-crt font-mono-tech uppercase tracking-widest text-xs font-bold bg-crt/10 px-3 py-1 rounded-full border border-crt/30">
+          Engenharia de Ponta
+        </span>
+        <h2 class="text-3xl sm:text-5xl font-extrabold uppercase font-condensed tracking-tight text-white mt-4">
+          Cada Detalhe Projetado Para o Seu Fluxo Criativo
+        </h2>
+        <p class="text-slate-400 text-base sm:text-lg mt-3">
+          Veja como as ferramentas do MadBass resolvem cada etapa da produção da sua linha de baixo.
+        </p>
+      </div>
+
+      <!-- RECURSO 1: A ALAVANCA E OS 3 MODOS -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-24">
+        <div>
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded bg-yellow-500/10 border border-yellow-500/30 text-amber-crt font-mono-tech text-xs uppercase mb-4">
+            Recurso 01 · O Coração do Plugin
+          </div>
+          <h3 class="text-3xl sm:text-4xl font-extrabold uppercase font-condensed text-white mb-4">
+            A Alavanca Industrial e Seus 3 Modos Exclusivos
+          </h3>
+          <p class="text-slate-300 text-base leading-relaxed mb-6">
+            A alavanca não é apenas um botão: é o centro de controle do seu groove. Basta escolher um dos 3 LEDs de modo ao lado da alavanca e puxar:
+          </p>
+          <div class="space-y-4">
+            <div class="bg-metal-950 p-4 rounded-lg border border-metal-border flex items-start gap-4">
+              <img src="./images/madbass_led_random.jpg" alt="LED Random" class="w-8 h-14 object-contain rounded">
+              <div>
+                <h4 class="text-white font-bold text-base font-condensed uppercase">MODO RANDOM</h4>
+                <p class="text-xs text-slate-400 mt-1">Cria um pattern 100% novo (novo specimen). É o seu ponto de partida para encontrar aquele riff arrebatador.</p>
+              </div>
+            </div>
+            <div class="bg-metal-950 p-4 rounded-lg border border-metal-border flex items-start gap-4">
+              <img src="./images/madbass_led_evolve.jpg" alt="LED Evolve" class="w-8 h-14 object-contain rounded">
+              <div>
+                <h4 class="text-white font-bold text-base font-condensed uppercase">MODO EVOLVE (+E)</h4>
+                <p class="text-xs text-slate-400 mt-1">Muda um pouco o pattern atual: remove algumas notas, altera outras e pode acrescentar detalhes mantendo o desenho original. O segredo para criar variações sem perder a identidade.</p>
+              </div>
+            </div>
+            <div class="bg-metal-950 p-4 rounded-lg border border-metal-border flex items-start gap-4">
+              <img src="./images/madbass_led_humanize.jpg" alt="LED Humanize" class="w-8 h-14 object-contain rounded">
+              <div>
+                <h4 class="text-white font-bold text-base font-condensed uppercase">MODO HUMANIZE (+H)</h4>
+                <p class="text-xs text-slate-400 mt-1">Mantém as mesmas notas e posições e aplica variações sutis de micro-timing, velocity e duração para tirar a rigidez matemática do grid e soar como um músico real.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="relative flex justify-center">
+          <div class="relative rounded-2xl overflow-hidden border-2 border-metal-border shadow-2xl bg-metal-950 p-4 max-w-md">
+            <img src="./images/madbass_lever_section.jpg" alt="Alavanca do MadBass" class="w-full h-auto object-cover rounded-lg">
+            <div class="mt-3 text-center text-xs font-mono-tech text-slate-400">
+              A alavanca desce, aciona o algoritmo e retorna instantaneamente com som tátil.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RECURSO 2: MODO STABILIZE (TRAVANDO NOTAS) -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-24">
+        <div class="order-2 lg:order-1 relative flex justify-center">
+          <div class="relative rounded-2xl overflow-hidden border-2 border-amber-500/50 shadow-[0_0_40px_rgba(255,176,0,0.2)] bg-metal-950 p-4 max-w-lg">
+            <img src="./images/madbass_stabilize_amber.jpg" alt="Modo STABILIZE com notas em âmbar" class="w-full h-auto object-cover rounded-lg">
+            <div class="mt-3 flex items-center justify-between text-xs font-mono-tech px-2">
+              <span class="text-amber-crt">NOTAS TRAVADAS FICAM EM ÂMBAR</span>
+              <img src="./images/madbass_stabilize_btn.jpg" alt="Botão Stabilize" class="h-6 object-contain">
+            </div>
+          </div>
+        </div>
+        <div class="order-1 lg:order-2">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded bg-amber-500/10 border border-amber-500/30 text-amber-crt font-mono-tech text-xs uppercase mb-4">
+            Recurso 02 · A Arma Secreta
+          </div>
+          <h3 class="text-3xl sm:text-4xl font-extrabold uppercase font-condensed text-white mb-4">
+            STABILIZE: Trave as Notas Perfeitas e Recrie o Resto ao Redor
+          </h3>
+          <p class="text-slate-300 text-base leading-relaxed mb-4">
+            Quantas vezes você gerou uma ideia e amou apenas o comecinho do riff, mas o resto não encaixava? Com o <strong>STABILIZE</strong>, esse problema acabou:
+          </p>
+          <ul class="space-y-3 text-sm text-slate-300 mb-6">
+            <li class="flex items-start gap-2.5">
+              <span class="w-5 h-5 rounded-full bg-amber-crt/20 text-amber-crt flex items-center justify-center font-bold text-xs mt-0.5">1</span>
+              <span>Ligue o <strong>STABILIZE</strong>: o visor avisará <em class="text-amber-crt font-mono-tech">STABILIZE: CLICK NOTES TO LOCK</em>.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="w-5 h-5 rounded-full bg-amber-crt/20 text-amber-crt flex items-center justify-center font-bold text-xs mt-0.5">2</span>
+              <span>Clique nas notas que seguram o groove (como as tônicas no off-beat). Elas brilham em <strong>cor âmbar</strong>.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="w-5 h-5 rounded-full bg-amber-crt/20 text-amber-crt flex items-center justify-center font-bold text-xs mt-0.5">3</span>
+              <span>Puxe a alavanca novamente: <strong>as notas travadas permanecem intocadas</strong>, e o MadBass cria novos ornamentos e variações exatamente ao redor delas!</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="w-5 h-5 rounded-full bg-amber-crt/20 text-amber-crt flex items-center justify-center font-bold text-xs mt-0.5">4</span>
+              <span>Muda o tom da música? <strong>As travas transpõem junto automaticamente</strong> com a tônica!</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- RECURSO 3: O DISPLAY CRT E ALINHAMENTO COM O KICK -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-24">
+        <div>
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded bg-crt/10 border border-crt/30 text-crt font-mono-tech text-xs uppercase mb-4">
+            Recurso 03 · Visão Cirúrgica
+          </div>
+          <h3 class="text-3xl sm:text-4xl font-extrabold uppercase font-condensed text-white mb-4">
+            Display CRT & Piano Roll com Alinhamento do Bumbo
+          </h3>
+          <p class="text-slate-300 text-base leading-relaxed mb-4">
+            O MadBass foi feito para quem vive no mundo real da produção musical. O display CRT verde fósforo não é só estética: é uma ferramenta de precisão cirúrgica:
+          </p>
+          <div class="space-y-3 text-sm text-slate-300">
+            <div class="p-3 bg-metal-950 rounded border border-metal-border">
+              <strong class="text-crt font-condensed uppercase text-base block">Marcadores Visuais de Kick (4-on-the-floor)</strong>
+              <p class="text-xs text-slate-400 mt-1">Triângulos na base marcam os passos 0, 4, 8 e 12. Você enxerga com clareza matemática onde o baixo desvia do kick para evitar colisões no espectro de sub.</p>
+            </div>
+            <div class="p-3 bg-metal-950 rounded border border-metal-border">
+              <strong class="text-crt font-condensed uppercase text-base block">Velocity e Duração em Cores Reais</strong>
+              <p class="text-xs text-slate-400 mt-1">Mais brilho indica maior velocity; o comprimento do retângulo mostra a sustentação. Barras verticais na base mostram a dinâmica exata de cada nota.</p>
+            </div>
+            <div class="p-3 bg-metal-950 rounded border border-metal-border">
+              <strong class="text-crt font-condensed uppercase text-base block">Sincronia Total de BPM</strong>
+              <p class="text-xs text-slate-400 mt-1">O plugin lê o andamento da sua DAW em tempo real (124 a 130+ BPM) e grava essa informação no arquivo MIDI exportado.</p>
+            </div>
+          </div>
+        </div>
+        <div class="relative flex justify-center">
+          <div class="relative rounded-2xl overflow-hidden border-2 border-metal-border shadow-2xl bg-metal-950 p-4 max-w-lg">
+            <img src="./images/madbass_crt_display.jpg" alt="Display CRT do MadBass" class="w-full h-auto object-cover rounded-lg">
+            <div class="mt-3 text-center text-xs font-mono-tech text-crt">
+              Piano roll CRT com linhas de compasso, velocity e marcas de kick 4x4.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RECURSO 4: OS 6 CONTROLES E DENSIDADE -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-24">
+        <div class="order-2 lg:order-1 relative flex justify-center">
+          <div class="space-y-3 max-w-lg">
+            <div class="rounded-xl overflow-hidden border border-metal-border shadow-xl bg-metal-950 p-3">
+              <img src="./images/madbass_six_knobs.jpg" alt="Seis Controles do MadBass" class="w-full h-auto object-cover rounded">
+            </div>
+            <!-- Imagens de Densidade -->
+            <div class="grid grid-cols-3 gap-2">
+              <div class="rounded border border-metal-border p-1 bg-metal-950 text-center">
+                <img src="./images/madbass_density_025.jpg" alt="Densidade 0.25" class="w-full h-auto object-cover rounded">
+                <span class="text-[10px] font-mono-tech text-slate-400 mt-1 block">DENSITY 0.25</span>
+              </div>
+              <div class="rounded border border-crt/50 p-1 bg-metal-950 text-center">
+                <img src="./images/madbass_density_055.jpg" alt="Densidade 0.55" class="w-full h-auto object-cover rounded">
+                <span class="text-[10px] font-mono-tech text-crt mt-1 block">DENSITY 0.55 (PADRÃO)</span>
+              </div>
+              <div class="rounded border border-metal-border p-1 bg-metal-950 text-center">
+                <img src="./images/madbass_density_090.jpg" alt="Densidade 0.90" class="w-full h-auto object-cover rounded">
+                <span class="text-[10px] font-mono-tech text-slate-400 mt-1 block">DENSITY 0.90</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="order-1 lg:order-2">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded bg-crt/10 border border-crt/30 text-crt font-mono-tech text-xs uppercase mb-4">
+            Recurso 04 · Ajustes Precisos
+          </div>
+          <h3 class="text-3xl sm:text-4xl font-extrabold uppercase font-condensed text-white mb-4">
+            6 Controles Essenciais no Painel Frontal
+          </h3>
+          <p class="text-slate-300 text-base leading-relaxed mb-4">
+            Sem menus escondidos ou centenas de parâmetros inúteis. Apenas o que importa para moldar a sua bassline:
+          </p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+            <div class="p-3 bg-metal-950 rounded border border-metal-border">
+              <strong class="text-amber-crt font-condensed uppercase text-sm block">KEY (C a B)</strong>
+              <p class="text-slate-400 mt-1">Define a tônica. Transpõe todo o pattern (inclusive as notas travadas).</p>
+            </div>
+            <div class="p-3 bg-metal-950 rounded border border-metal-border">
+              <strong class="text-amber-crt font-condensed uppercase text-sm block">SCALE (6 Escalas)</strong>
+              <p class="text-slate-400 mt-1">Minor, Dorian, Phrygian, Pentatonic, Harmonic Minor e Phrygian Dominant.</p>
+            </div>
+            <div class="p-3 bg-metal-950 rounded border border-metal-border">
+              <strong class="text-amber-crt font-condensed uppercase text-sm block">BARS (1 a 4)</strong>
+              <p class="text-slate-400 mt-1">Tamanho do pattern em compassos (de 16 a 64 steps de semicolcheias).</p>
+            </div>
+            <div class="p-3 bg-metal-950 rounded border border-metal-border">
+              <strong class="text-amber-crt font-condensed uppercase text-sm block">DENSITY (0.00 a 1.00)</strong>
+              <p class="text-slate-400 mt-1">De linhas espaçadas e minimalistas a grooves cheios e pulsantes.</p>
+            </div>
+            <div class="p-3 bg-metal-950 rounded border border-metal-border">
+              <strong class="text-amber-crt font-condensed uppercase text-sm block">SWING (0.00 a 0.50)</strong>
+              <p class="text-slate-400 mt-1">Atrasa a 2ª e a 4ª semicolcheia para dar o balanço típico de tech house.</p>
+            </div>
+            <div class="p-3 bg-metal-950 rounded border border-metal-border">
+              <strong class="text-amber-crt font-condensed uppercase text-sm block">DRAG OCT (-2 a +3)</strong>
+              <p class="text-slate-400 mt-1">Desloca a oitava do MIDI arrastado para afinar com o mapa do seu sintetizador.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RECURSO 5: DRAG & DROP E HISTÓRICO DETERMINÍSTICO -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded bg-crt/10 border border-crt/30 text-crt font-mono-tech text-xs uppercase mb-4">
+            Recurso 05 · Fluxo Sem Atrito
+          </div>
+          <h3 class="text-3xl sm:text-4xl font-extrabold uppercase font-condensed text-white mb-4">
+            Arraste Direto para a DAW e Salve Suas Sementes
+          </h3>
+          <p class="text-slate-300 text-base leading-relaxed mb-4">
+            Nada de abrir pastas no Windows Explorer ou exportar arquivos manuais. O fluxo do MadBass é imediato:
+          </p>
+          <ul class="space-y-4 text-sm text-slate-300">
+            <li class="flex items-start gap-3">
+              <div class="w-6 h-6 rounded bg-crt/20 text-crt flex items-center justify-center font-bold text-xs mt-1">✓</div>
+              <div>
+                <strong class="text-white block font-condensed uppercase text-base">DRAG MIDI Sem Complicações</strong>
+                <p class="text-xs text-slate-400 mt-0.5">Clique e segure na área verde <em>DRAG MIDI</em> e solte na pista MIDI da sua DAW com seu synth favorito carregado (Serum, Vital, Diva, etc.).</p>
+              </div>
+            </li>
+            <li class="flex items-start gap-3">
+              <div class="w-6 h-6 rounded bg-amber-crt/20 text-amber-crt flex items-center justify-center font-bold text-xs mt-1">✓</div>
+              <div>
+                <strong class="text-white block font-condensed uppercase text-base">SPECIMEN LOG & ARCHIVE (Favoritos)</strong>
+                <p class="text-xs text-slate-400 mt-0.5">O MadBass grava os últimos 12 specimens gerados e permite favoritar com estrela (*). Quer voltar a um pattern de 10 minutos atrás? Basta um clique no log.</p>
+              </div>
+            </li>
+            <li class="flex items-start gap-3">
+              <div class="w-6 h-6 rounded bg-crt/20 text-crt flex items-center justify-center font-bold text-xs mt-1">✓</div>
+              <div>
+                <strong class="text-white block font-condensed uppercase text-base">Salvo Automaticamente com Seu Projeto</strong>
+                <p class="text-xs text-slate-400 mt-0.5">Ao salvar o projeto na sua DAW, todo o histórico, travas do STABILIZE e favoritos são preservados. Abra daqui a 6 meses e continue exatamente de onde parou.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div class="rounded-xl overflow-hidden border border-metal-border shadow-xl bg-metal-950 p-2 text-center">
+            <img src="./images/madbass_drag_midi.jpg" alt="DRAG MIDI" class="w-full h-auto object-cover rounded">
+            <span class="text-[11px] font-mono-tech text-crt mt-2 block">Área DRAG MIDI</span>
+          </div>
+          <div class="rounded-xl overflow-hidden border border-metal-border shadow-xl bg-metal-950 p-2 text-center">
+            <img src="./images/madbass_specimen_log_archive.jpg" alt="Specimen Log & Archive" class="w-full h-auto object-cover rounded">
+            <span class="text-[11px] font-mono-tech text-amber-crt mt-2 block">Specimen Log & Archive</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       WORKFLOW DOS PRODUTORES PROFISSIONAIS (EM 3 PASSOS)
+       ========================================================================= -->
+  <section id="workflow" class="py-20 bg-metal-950 border-t border-metal-border">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-crt font-mono-tech uppercase tracking-widest text-xs font-bold bg-crt/10 px-3 py-1 rounded-full border border-crt/30">
+          Metodologia Acelerada
+        </span>
+        <h2 class="text-3xl sm:text-5xl font-extrabold uppercase font-condensed tracking-tight text-white mt-4">
+          Em Menos de 5 Minutos Você Tem a Bassline Pronta
+        </h2>
+        <p class="text-slate-400 text-base sm:text-lg mt-3">
+          O workflow que os produtores mais rápidos do mundo utilizam para lançar faixas com consistência.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Passo 1 -->
+        <div class="bg-metal-900 border border-metal-border p-6 rounded-xl relative shadow-lg group hover:border-crt transition">
+          <div class="w-12 h-12 bg-crt/10 border border-crt rounded-lg flex items-center justify-center text-crt font-stencil text-2xl mb-6">
+            01
+          </div>
+          <h3 class="text-xl font-bold text-white uppercase font-condensed mb-2">Gere com a Alavanca</h3>
+          <p class="text-slate-400 text-sm leading-relaxed mb-4">
+            Abra o MadBass na sua pista, escolha o tom da sua track (ex: F Minor) e puxe a alavanca no modo RANDOM. Ouça em loop com o PREVIEW integrado.
+          </p>
+          <div class="text-xs font-mono-tech text-crt">TEMPO: ~10 SEGUNDOS</div>
+        </div>
+
+        <!-- Passo 2 -->
+        <div class="bg-metal-900 border border-metal-border p-6 rounded-xl relative shadow-lg group hover:border-amber-500 transition">
+          <div class="w-12 h-12 bg-amber-500/10 border border-amber-500 rounded-lg flex items-center justify-center text-amber-crt font-stencil text-2xl mb-6">
+            02
+          </div>
+          <h3 class="text-xl font-bold text-white uppercase font-condensed mb-2">Trave e Evolua</h3>
+          <p class="text-slate-400 text-sm leading-relaxed mb-4">
+            Gostou das duas notas principais no off-beat? Ligue o <strong>STABILIZE</strong> e clique nelas. Mude para <strong>EVOLVE</strong> para criar variações para o break e o drop.
+          </p>
+          <div class="text-xs font-mono-tech text-amber-crt">TEMPO: ~40 SEGUNDOS</div>
+        </div>
+
+        <!-- Passo 3 -->
+        <div class="bg-metal-900 border border-metal-border p-6 rounded-xl relative shadow-lg group hover:border-crt transition">
+          <div class="w-12 h-12 bg-crt/10 border border-crt rounded-lg flex items-center justify-center text-crt font-stencil text-2xl mb-6">
+            03
+          </div>
+          <h3 class="text-xl font-bold text-white uppercase font-condensed mb-2">Arraste para o Seu Synth</h3>
+          <p class="text-slate-400 text-sm leading-relaxed mb-4">
+            Arraste a área DRAG MIDI direto para a pista do Serum, Vital, Diva ou Minimoog. O MIDI já cai quantizado, com swing e velocity ajustados.
+          </p>
+          <div class="text-xs font-mono-tech text-crt">TEMPO: ~5 SEGUNDOS</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       TABELA COMPARATIVA MATADORA
+       ========================================================================= -->
+  <section id="comparativo" class="py-20 bg-metal-900 border-t border-metal-border">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-crt font-mono-tech uppercase tracking-widest text-xs font-bold bg-crt/10 px-3 py-1 rounded-full border border-crt/30">
+          Análise Comparativa
+        </span>
+        <h2 class="text-3xl sm:text-5xl font-extrabold uppercase font-condensed tracking-tight text-white mt-4">
+          MadBass vs. Métodos Tradicionais
+        </h2>
+        <p class="text-slate-400 text-base sm:text-lg mt-3">
+          Veja por que o MadBass supera com folga desenhar notas à mão ou comprar pacotes estáticos.
+        </p>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse text-sm">
+          <thead>
+            <tr class="border-b border-metal-border text-slate-400 font-condensed text-base uppercase">
+              <th class="py-4 px-4">Recurso / Critério</th>
+              <th class="py-4 px-4 bg-emerald-950/40 text-crt border-x border-emerald-500/40 font-bold text-lg">MADBASS VST3</th>
+              <th class="py-4 px-4">Packs de MIDI Estáticos</th>
+              <th class="py-4 px-4">Desenhar na Mão</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-metal-border font-mono-tech text-xs">
+            <tr>
+              <td class="py-4 px-4 text-white font-bold font-sans">DNA Exclusivo Tech House</td>
+              <td class="py-4 px-4 bg-emerald-950/30 text-crt font-bold border-x border-emerald-500/40">100% Especializado (Off-beat, slides)</td>
+              <td class="py-4 px-4 text-slate-400">Genérico / Outros gêneros</td>
+              <td class="py-4 px-4 text-slate-400">Depende da sua inspiração</td>
+            </tr>
+            <tr>
+              <td class="py-4 px-4 text-white font-bold font-sans">Variabilidade Infinita</td>
+              <td class="py-4 px-4 bg-emerald-950/30 text-crt font-bold border-x border-emerald-500/40">Infinitos specimens determinísticos</td>
+              <td class="py-4 px-4 text-slate-400">Limitado a 50 ou 100 arquivos</td>
+              <td class="py-4 px-4 text-slate-400">Limitado ao seu tempo</td>
+            </tr>
+            <tr>
+              <td class="py-4 px-4 text-white font-bold font-sans">Travar Notas Favoritas (STABILIZE)</td>
+              <td class="py-4 px-4 bg-emerald-950/30 text-crt font-bold border-x border-emerald-500/40">SIM (Trava notas e recria o resto)</td>
+              <td class="py-4 px-4 text-slate-400">NÃO</td>
+              <td class="py-4 px-4 text-slate-400">Trabalhoso e lento</td>
+            </tr>
+            <tr>
+              <td class="py-4 px-4 text-white font-bold font-sans">Modo EVOLVE (+E) para Variações</td>
+              <td class="py-4 px-4 bg-emerald-950/30 text-crt font-bold border-x border-emerald-500/40">SIM (Varia mantendo a identidade)</td>
+              <td class="py-4 px-4 text-slate-400">NÃO (Arquivos desconexos)</td>
+              <td class="py-4 px-4 text-slate-400">Exige tentativa e erro</td>
+            </tr>
+            <tr>
+              <td class="py-4 px-4 text-white font-bold font-sans">Humanização Orgânica (HUMANIZE)</td>
+              <td class="py-4 px-4 bg-emerald-950/30 text-crt font-bold border-x border-emerald-500/40">SIM (Micro-timing e velocity)</td>
+              <td class="py-4 px-4 text-slate-400">Geralmente quantizado rígido</td>
+              <td class="py-4 px-4 text-slate-400">Demora horas ajustando</td>
+            </tr>
+            <tr>
+              <td class="py-4 px-4 text-white font-bold font-sans">Fluxo Drag & Drop Direto</td>
+              <td class="py-4 px-4 bg-emerald-950/30 text-crt font-bold border-x border-emerald-500/40">SIM (Arrasta de dentro da DAW)</td>
+              <td class="py-4 px-4 text-slate-400">Precisa garimpar no explorer</td>
+              <td class="py-4 px-4 text-slate-400">Manual</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       COMPATIBILIDADE UNIVERSAL
+       ========================================================================= -->
+  <section class="py-16 bg-metal-950 border-t border-metal-border">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      
+      <span class="text-slate-400 font-mono-tech uppercase tracking-widest text-xs">
+        Integração Perfeita com o Seu Estúdio
+      </span>
+      <h3 class="text-2xl sm:text-3xl font-extrabold uppercase font-condensed text-white mt-2 mb-8">
+        Compatível com Todas as Principais DAWs do Mercado
+      </h3>
+
+      <div class="flex flex-wrap items-center justify-center gap-4 sm:gap-8 font-condensed text-lg font-bold text-slate-300">
+        <div class="px-5 py-3 rounded bg-metal-900 border border-metal-border flex items-center gap-2">
+          <span class="text-crt">●</span> Ableton Live 10 / 11 / 12
+        </div>
+        <div class="px-5 py-3 rounded bg-metal-900 border border-metal-border flex items-center gap-2">
+          <span class="text-crt">●</span> FL Studio 20 / 21 / 24
+        </div>
+        <div class="px-5 py-3 rounded bg-metal-900 border border-metal-border flex items-center gap-2">
+          <span class="text-crt">●</span> Bitwig Studio
+        </div>
+        <div class="px-5 py-3 rounded bg-metal-900 border border-metal-border flex items-center gap-2">
+          <span class="text-crt">●</span> Reaper
+        </div>
+        <div class="px-5 py-3 rounded bg-metal-900 border border-metal-border flex items-center gap-2">
+          <span class="text-crt">●</span> Cubase / Studio One
+        </div>
+      </div>
+
+      <p class="text-xs font-mono-tech text-slate-500 mt-6">
+        Requisitos: Windows 10 ou 11 (64 bits) · Formato VST3 padrão do sistema · Versão Standalone (independente) inclusa!
+      </p>
+
+    </div>
+  </section>
+
+  
+  <!-- =========================================================================
+       DEPOIMENTOS DE PRODUTORES (PROVA SOCIAL)
+       ========================================================================= -->
+  <section class="py-20 bg-metal-900 border-t border-metal-border">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-crt font-mono-tech uppercase tracking-widest text-xs font-bold bg-crt/10 px-3 py-1 rounded-full border border-crt/30">
+          Aprovado na Pista
+        </span>
+        <h2 class="text-3xl sm:text-5xl font-extrabold uppercase font-condensed tracking-tight text-white mt-4">
+          Quem Usa o MadBass Não Volta Atrás
+        </h2>
+        <p class="text-slate-400 text-base sm:text-lg mt-3">
+          Veja o que produtores que já assinaram com gravadoras de renome estão achando do workflow com o MadBass.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Depoimento 1 -->
+        <div class="bg-metal-950 border border-metal-border rounded-xl p-6 flex flex-col justify-between shadow-lg">
+          <div>
+            <div class="flex items-center gap-1 text-amber-crt text-sm mb-4">
+              ★★★★★
+            </div>
+            <p class="text-slate-300 text-sm leading-relaxed italic mb-6">
+              "Eu perdia pelo menos 2 a 3 horas toda vez que começava um projeto só tentando fazer o baixo casar com o kick. Com o MadBass, em 3 minutos puxo a alavanca, travo a tônica no off-beat com o STABILIZE e o drop já tá pronto. Uma das melhores ferramentas que já comprei."
+            </p>
+          </div>
+          <div class="border-t border-metal-border/60 pt-4 flex items-center justify-between">
+            <div>
+              <strong class="text-white font-condensed uppercase text-base block">Rodrigo 'Rodz' Silva</strong>
+              <span class="text-xs font-mono-tech text-slate-400">Produtor & DJ · São Paulo</span>
+            </div>
+            <span class="text-[10px] font-mono-tech bg-metal-900 px-2 py-1 rounded text-crt border border-crt/30">Lançamentos em Clubes</span>
+          </div>
+        </div>
+
+        <!-- Depoimento 2 -->
+        <div class="bg-metal-950 border border-crt/40 rounded-xl p-6 flex flex-col justify-between shadow-[0_0_30px_rgba(0,255,102,0.1)] relative">
+          <div class="absolute -top-3 right-6 bg-crt text-black text-[10px] font-bold font-mono-tech px-2.5 py-0.5 rounded-full uppercase">
+            Top Recomendado
+          </div>
+          <div>
+            <div class="flex items-center gap-1 text-amber-crt text-sm mb-4">
+              ★★★★★
+            </div>
+            <p class="text-slate-300 text-sm leading-relaxed italic mb-6">
+              "A função EVOLVE mudou a forma como monto arranjos. Crio o riff principal pro primeiro drop, dou EVOLVE a cada 8 compassos e crio a variação do segundo drop sem quebrar a vibe da música. O Drag MIDI pro Serum é instantâneo."
+            </p>
+          </div>
+          <div class="border-t border-metal-border/60 pt-4 flex items-center justify-between">
+            <div>
+              <strong class="text-white font-condensed uppercase text-base block">Lucas Fontes (LKX)</strong>
+              <span class="text-xs font-mono-tech text-slate-400">Produtor de Tech House · Curitiba</span>
+            </div>
+            <span class="text-[10px] font-mono-tech bg-metal-900 px-2 py-1 rounded text-crt border border-crt/30">+500k Plays</span>
+          </div>
+        </div>
+
+        <!-- Depoimento 3 -->
+        <div class="bg-metal-950 border border-metal-border rounded-xl p-6 flex flex-col justify-between shadow-lg">
+          <div>
+            <div class="flex items-center gap-1 text-amber-crt text-sm mb-4">
+              ★★★★★
+            </div>
+            <p class="text-slate-300 text-sm leading-relaxed italic mb-6">
+              "O display CRT com as marcas de kick 4-on-the-floor é genial. Você bate o olho e vê exatamente onde as notas estão deixando espaço pro sub respirar. O som de tech house fica limpo e com muito peso no sound system."
+            </p>
+          </div>
+          <div class="border-t border-metal-border/60 pt-4 flex items-center justify-between">
+            <div>
+              <strong class="text-white font-condensed uppercase text-base block">Matheus Alencar (MTH)</strong>
+              <span class="text-xs font-mono-tech text-slate-400">DJ Residente & Produtor</span>
+            </div>
+            <span class="text-[10px] font-mono-tech bg-metal-900 px-2 py-1 rounded text-crt border border-crt/30">Suporte de Grandes DJs</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!-- =========================================================================
+       OFERTA IRRESISTÍVEL / PREÇO & BÔNUS DE LANÇAMENTO
+       ========================================================================= -->
+  <section id="comprar" class="py-24 bg-gradient-to-b from-metal-900 via-metal-950 to-black border-t border-metal-border relative overflow-hidden">
+    <!-- Glows -->
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-crt/15 blur-[150px] rounded-full pointer-events-none"></div>
+
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      
+      <!-- Contador Regressivo -->
+      <div class="max-w-md mx-auto bg-black/80 border border-metal-border rounded-lg p-3 text-center mb-8 flex items-center justify-center gap-3">
+        <span class="text-xs font-mono-tech text-slate-400 uppercase">Esta oferta especial encerra em:</span>
+        <div class="flex items-center gap-1 font-mono-tech text-amber-crt font-bold text-sm">
+          <span id="countdownMin" class="bg-metal-900 px-2 py-0.5 rounded border border-metal-border">14</span>
+          <span>:</span>
+          <span id="countdownSec" class="bg-metal-900 px-2 py-0.5 rounded border border-metal-border">42</span>
+        </div>
+      </div>
+
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <span class="text-crt font-mono-tech uppercase tracking-widest text-xs font-bold bg-crt/10 px-4 py-1.5 rounded-full border border-crt/30">
+          Pacote Completo de Lançamento
+        </span>
+        <h2 class="text-4xl sm:text-6xl font-extrabold uppercase font-condensed tracking-tight text-white mt-4">
+          Desbloqueie o MadBass + 2 Bônus Exclusivos
+        </h2>
+        <p class="text-slate-300 text-base sm:text-lg mt-3">
+          Tudo o que você precisa para nunca mais ter uma track sem groove na sua vida.
+        </p>
+      </div>
+
+      <!-- CARD DA OFERTA PRINCIPAL -->
+      <div class="bg-gradient-to-b from-[#1b222d] to-[#0f131a] rounded-2xl border-2 border-crt shadow-[0_0_50px_rgba(0,255,102,0.25)] p-6 sm:p-10 relative">
+        
+        <!-- Tag de Destaque -->
+        <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-crt text-black font-extrabold text-xs uppercase tracking-widest px-6 py-1.5 rounded-full shadow-lg font-stencil">
+          ACESSO VITALÍCIO · VAGAS LIMITADAS
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          
+          <!-- Lista de Entregáveis e Bônus (7 colunas) -->
+          <div class="lg:col-span-7 space-y-4">
+            <h3 class="text-2xl font-bold uppercase font-condensed text-white border-b border-metal-border/80 pb-3">
+              O Que Você Leva Hoje:
+            </h3>
+
+            <div class="space-y-3.5">
+              <div class="flex items-start gap-3">
+                <span class="text-crt font-bold text-lg">✔</span>
+                <div>
+                  <strong class="text-white text-base font-condensed uppercase">Plugin VST3 MadBass v0.1.0 (Windows 64-bit)</strong>
+                  <p class="text-xs text-slate-400">Geração ilimitada, alavanca com 3 modos (Random, Evolve, Humanize), STABILIZE e Drag MIDI.</p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-3">
+                <span class="text-crt font-bold text-lg">✔</span>
+                <div>
+                  <strong class="text-white text-base font-condensed uppercase">Versão Standalone Incluída</strong>
+                  <p class="text-xs text-slate-400">Abra no Windows mesmo sem a sua DAW para testar ideias com o preview integrado em segundos.</p>
+                </div>
+              </div>
+
+              <!-- BÔNUS 1 (ANTIGO BÔNUS 2) -->
+              <div class="flex items-start gap-3 bg-metal-950/60 p-3.5 rounded-lg border border-yellow-500/30 hover:border-yellow-400/50 transition">
+                <span class="text-amber-crt font-bold text-xl">★</span>
+                <div>
+                  <strong class="text-amber-crt text-sm font-condensed uppercase tracking-wider block">BÔNUS #1: 15 Presets de Baixo para Vital & Serum</strong>
+                  <p class="text-xs text-slate-300 mt-0.5">Timbres rolantes e prontos com sub afinado para arrastar seu MIDI e tocar com peso de festival. <span class="line-through text-slate-500">(Valor: R$ 67)</span></p>
+                </div>
+              </div>
+
+              <!-- BÔNUS 2 (ANTIGO BÔNUS 3) -->
+              <div class="flex items-start gap-3 bg-metal-950/60 p-3.5 rounded-lg border border-yellow-500/30 hover:border-yellow-400/50 transition">
+                <span class="text-amber-crt font-bold text-xl">★</span>
+                <div>
+                  <strong class="text-amber-crt text-sm font-condensed uppercase tracking-wider block">BÔNUS #2: Masterclass de Workflow Rápido em Vídeo HD</strong>
+                  <p class="text-xs text-slate-300 mt-0.5">Como montar a base inteira de uma faixa de Tech House em 20 minutos usando o MadBass. <span class="line-through text-slate-500">(Valor: R$ 97)</span></p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-3">
+                <span class="text-crt font-bold text-lg">✔</span>
+                <div>
+                  <strong class="text-white text-base font-condensed uppercase">Atualizações Gratuitas de Toda a Versão 0.x</strong>
+                  <p class="text-xs text-slate-400">Você recebe melhorias e novas atualizações sem pagar nada a mais por isso.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Checkout Box (5 colunas) -->
+          <div class="lg:col-span-5 bg-black/90 p-6 sm:p-8 rounded-xl border border-metal-border text-center shadow-2xl">
+            <span class="text-xs font-mono-tech text-slate-400 uppercase tracking-widest block mb-1">Valor Total dos Itens: R$ 361</span>
+            <span class="text-sm font-bold text-red-400 line-through block mb-2">Preço Padrão: R$ 197,00</span>
+
+            <div class="my-4">
+              <span class="text-xs text-slate-400 uppercase block font-mono-tech">Por apenas</span>
+              <div class="text-5xl sm:text-6xl font-extrabold text-white font-condensed tracking-tight">
+                <span class="text-2xl text-crt font-normal align-top">R$</span> 49<span class="text-2xl font-normal text-slate-400">,90</span>
+              </div>
+              <span class="text-xs text-crt font-mono-tech font-bold block mt-1">OU EM ATÉ 12x DE R$ 5,14</span>
+            </div>
+
+            <!-- Botão Comprar Principal -->
+            <a href="https://pay.hotmart.com" target="_blank" class="w-full py-4 px-6 bg-crt hover:bg-emerald-400 text-black font-extrabold text-lg uppercase tracking-wider rounded-lg transition shadow-[0_0_30px_rgba(0,255,102,0.6)] pulse-glow-green block mt-6">
+              <span class="font-stencil">COMPRAR MADBASS AGORA</span>
+            </a>
+
+            <!-- Selos de Segurança -->
+            <div class="mt-6 pt-5 border-t border-metal-border/60 flex items-center justify-center gap-4 text-slate-400 text-xs font-mono-tech">
+              <div class="flex items-center gap-1">
+                <svg class="w-4 h-4 text-crt" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                <span>Pagamento Seguro</span>
+              </div>
+              <div class="flex items-center gap-1">
+                <svg class="w-4 h-4 text-crt" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                <span>Acesso Imediato</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- GARANTIA BLINDADA DE 7 DIAS -->
+      <div class="mt-12 bg-metal-950 border border-metal-border rounded-xl p-6 sm:p-8 flex flex-col sm:flex-row items-center gap-6 max-w-3xl mx-auto shadow-lg">
+        <div class="w-20 h-20 rounded-full bg-emerald-950/60 border-2 border-crt flex items-center justify-center text-crt font-bold text-3xl shrink-0">
+          7
+        </div>
+        <div>
+          <h4 class="text-xl font-bold uppercase font-condensed text-white mb-1">Garantia Blindada de Satisfação Total (7 Dias)</h4>
+          <p class="text-xs sm:text-sm text-slate-400 leading-relaxed">
+            Instale o MadBass na sua DAW, puxe a alavanca e produza suas faixas. Se por qualquer motivo você achar que ele não acelerou seu fluxo de trabalho ou não entregou o groove que você esperava, basta enviar um único email para o nosso suporte e nós devolveremos 100% do seu dinheiro. Sem perguntas e sem letras miúdas.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       PERGUNTAS FREQUENTES (FAQ ACCORDION)
+       ========================================================================= -->
+  <section id="faq" class="py-20 bg-metal-950 border-t border-metal-border">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <span class="text-crt font-mono-tech uppercase tracking-widest text-xs font-bold bg-crt/10 px-3 py-1 rounded-full border border-crt/30">
+          Tire Suas Dúvidas
+        </span>
+        <h2 class="text-3xl sm:text-5xl font-extrabold uppercase font-condensed tracking-tight text-white mt-4">
+          Perguntas Frequentes
+        </h2>
+        <p class="text-slate-400 text-sm sm:text-base mt-2">Clique em qualquer pergunta ou na setinha para ver a resposta detalhada.</p>
+      </div>
+
+      <div class="space-y-4">
+        <!-- FAQ 1 -->
+        <div class="faq-item bg-metal-900 border border-metal-border rounded-lg overflow-hidden transition hover:border-slate-500">
+          <button type="button" onclick="toggleFaq(this)" class="w-full p-5 text-left flex items-center justify-between text-white font-bold font-condensed text-lg uppercase hover:text-crt transition cursor-pointer select-none">
+            <span class="pr-4">O MadBass é um sintetizador ou gerador MIDI?</span>
+            <span class="w-8 h-8 rounded-full bg-metal-950 border border-metal-border flex items-center justify-center shrink-0">
+              <svg class="faq-icon w-4 h-4 text-crt transition-transform duration-300 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
+            </span>
+          </button>
+          <div class="faq-content hidden px-5 pb-5 pt-2 text-sm text-slate-300 leading-relaxed border-t border-metal-border/50 bg-metal-950/40">
+            <p>
+              Ele é um <strong>gerador inteligente de patterns MIDI</strong> especializado exclusivamente em Tech House. Ele possui um motor de preview embutido (com som de baixo analógico real) apenas para você ouvir e escolher os patterns sem precisar carregar outro plugin, mas o objetivo principal é você arrastar o MIDI para tocar no seu synth favorito (Serum, Vital, Diva, Sylenth1, etc.).
+            </p>
+          </div>
+        </div>
+
+        <!-- FAQ 2 -->
+        <div class="faq-item bg-metal-900 border border-metal-border rounded-lg overflow-hidden transition hover:border-slate-500">
+          <button type="button" onclick="toggleFaq(this)" class="w-full p-5 text-left flex items-center justify-between text-white font-bold font-condensed text-lg uppercase hover:text-crt transition cursor-pointer select-none">
+            <span class="pr-4">Funciona no Ableton Live e no FL Studio?</span>
+            <span class="w-8 h-8 rounded-full bg-metal-950 border border-metal-border flex items-center justify-center shrink-0">
+              <svg class="faq-icon w-4 h-4 text-crt transition-transform duration-300 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
+            </span>
+          </button>
+          <div class="faq-content hidden px-5 pb-5 pt-2 text-sm text-slate-300 leading-relaxed border-t border-metal-border/50 bg-metal-950/40">
+            <p>
+              Sim! Ele é testado e 100% compatível com <strong>Ableton Live, FL Studio, Reaper, Bitwig Studio, Cubase, Studio One</strong> e qualquer DAW no Windows que suporte o formato <strong>VST3 de 64 bits</strong>.
+            </p>
+          </div>
+        </div>
+
+        <!-- FAQ 3 -->
+        <div class="faq-item bg-metal-900 border border-metal-border rounded-lg overflow-hidden transition hover:border-slate-500">
+          <button type="button" onclick="toggleFaq(this)" class="w-full p-5 text-left flex items-center justify-between text-white font-bold font-condensed text-lg uppercase hover:text-crt transition cursor-pointer select-none">
+            <span class="pr-4">Como funciona a instalação no Windows?</span>
+            <span class="w-8 h-8 rounded-full bg-metal-950 border border-metal-border flex items-center justify-center shrink-0">
+              <svg class="faq-icon w-4 h-4 text-crt transition-transform duration-300 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
+            </span>
+          </button>
+          <div class="faq-content hidden px-5 pb-5 pt-2 text-sm text-slate-300 leading-relaxed border-t border-metal-border/50 bg-metal-950/40">
+            <p>
+              A instalação leva menos de 1 minuto. Você receberá o instalador executável oficial <code>MadBass-Setup.exe</code>. Basta avançar os passos e ele instalará automaticamente a pasta VST3 no diretório padrão do Windows (<code class="text-crt font-mono-tech">C:\Program Files\Common Files\VST3\MadBass.vst3</code>). Ao abrir a sua DAW, basta fazer um rescan de plugins.
+            </p>
+          </div>
+        </div>
+
+        <!-- FAQ 4 -->
+        <div class="faq-item bg-metal-900 border border-metal-border rounded-lg overflow-hidden transition hover:border-slate-500">
+          <button type="button" onclick="toggleFaq(this)" class="w-full p-5 text-left flex items-center justify-between text-white font-bold font-condensed text-lg uppercase hover:text-crt transition cursor-pointer select-none">
+            <span class="pr-4">O que é a função STABILIZE?</span>
+            <span class="w-8 h-8 rounded-full bg-metal-950 border border-metal-border flex items-center justify-center shrink-0">
+              <svg class="faq-icon w-4 h-4 text-crt transition-transform duration-300 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
+            </span>
+          </button>
+          <div class="faq-content hidden px-5 pb-5 pt-2 text-sm text-slate-300 leading-relaxed border-t border-metal-border/50 bg-metal-950/40">
+            <p>
+              É a nossa tecnologia de travamento de notas. Se você gostou de 2 ou 3 notas do pattern (por exemplo, a tônica marcando o off-beat com pegada), você clica nelas e elas ficam em <strong>cor âmbar</strong>. Ao puxar a alavanca novamente nos modos RANDOM ou EVOLVE, essas notas travadas permanecem intocadas enquanto todo o restante do pattern é recriado em volta delas.
+            </p>
+          </div>
+        </div>
+
+        <!-- FAQ 5 -->
+        <div class="faq-item bg-metal-900 border border-metal-border rounded-lg overflow-hidden transition hover:border-slate-500">
+          <button type="button" onclick="toggleFaq(this)" class="w-full p-5 text-left flex items-center justify-between text-white font-bold font-condensed text-lg uppercase hover:text-crt transition cursor-pointer select-none">
+            <span class="pr-4">Tem versão para macOS?</span>
+            <span class="w-8 h-8 rounded-full bg-metal-950 border border-metal-border flex items-center justify-center shrink-0">
+              <svg class="faq-icon w-4 h-4 text-crt transition-transform duration-300 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
+            </span>
+          </button>
+          <div class="faq-content hidden px-5 pb-5 pt-2 text-sm text-slate-300 leading-relaxed border-t border-metal-border/50 bg-metal-950/40">
+            <p>
+              A versão atual 0.1.0 foi desenvolvida nativamente em C++/JUCE para <strong>Windows 10 e Windows 11 (64 bits)</strong>. A versão macOS está em desenvolvimento no nosso roadmap e quem adquirir hoje terá condições especiais de upgrade quando for lançada.
+            </p>
+          </div>
+        </div>
+
+        <!-- FAQ 6 -->
+        <div class="faq-item bg-metal-900 border border-metal-border rounded-lg overflow-hidden transition hover:border-slate-500">
+          <button type="button" onclick="toggleFaq(this)" class="w-full p-5 text-left flex items-center justify-between text-white font-bold font-condensed text-lg uppercase hover:text-crt transition cursor-pointer select-none">
+            <span class="pr-4">Como recebo o plugin e os bônus após a compra?</span>
+            <span class="w-8 h-8 rounded-full bg-metal-950 border border-metal-border flex items-center justify-center shrink-0">
+              <svg class="faq-icon w-4 h-4 text-crt transition-transform duration-300 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
+            </span>
+          </button>
+          <div class="faq-content hidden px-5 pb-5 pt-2 text-sm text-slate-300 leading-relaxed border-t border-metal-border/50 bg-metal-950/40">
+            <p>
+              O envio é <strong>100% automático e imediato</strong>. Assim que o pagamento for aprovado (Pix ou cartão), você receberá um email com os links diretos para download do instalador, da chave de ativação e dos dois pacotes de bônus exclusivos (15 Presets para Vital & Serum + Masterclass em Vídeo HD).
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       FOOTER
+       ========================================================================= -->
+  
+  <!-- =========================================================================
+       MODAL DE LIMITE DE DOWNLOADS (CONVERSÃO DE VENDAS COM 2 BÔNUS)
+       ========================================================================= -->
+  <div id="downloadLimitModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 hidden">
+    <div class="bg-gradient-to-b from-[#1b222d] to-[#0f131a] rounded-2xl border-2 border-crt shadow-[0_0_60px_rgba(0,255,102,0.3)] max-w-lg w-full p-6 sm:p-8 relative text-center">
+      <button id="closeLimitModal" class="absolute top-4 right-4 text-slate-400 hover:text-white text-2xl font-bold">&times;</button>
+      
+      <div class="w-16 h-16 rounded-full bg-crt/20 border-2 border-crt flex items-center justify-center text-crt mx-auto mb-4">
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m0 0v2m0-2h2m-2 0H10m12-5V7a2 2 0 00-2-2H4a2 2 0 00-2 2v5a2 2 0 002 2h16a2 2 0 002-2z"/></svg>
+      </div>
+
+      <div class="bg-red-600 text-white py-1 px-3 rounded inline-block font-extrabold text-xs uppercase tracking-wider mb-3 border border-red-400 shadow">
+        LIMITE GRATUITO ATINGIDO (3/3 MIDI)
+      </div>
+
+      <h3 class="text-2xl sm:text-3xl font-extrabold uppercase font-condensed text-white mb-3">
+        Gostou do Groove do MadBass?
+      </h3>
+
+      <p class="text-sm text-slate-300 leading-relaxed mb-6">
+        Você acabou de baixar suas <strong>3 basslines MIDI gratuitas</strong> geradas no nosso simulador. Para desbloquear <strong class="text-crt">gerações e exportações MIDI infinitas</strong> direto na sua DAW, com latência zero e todas as funções avançadas de Tech House, garanta agora a versão completa do <strong>MadBass VST3 + 2 Bônus Exclusivos</strong> com valor promocional!
+      </p>
+
+      <div class="bg-black/60 border border-metal-border rounded-lg p-3 text-left space-y-2 mb-6 text-xs text-slate-300">
+        <div class="flex items-center gap-2 text-crt">
+          <span>✔</span> <span>Gere infinitos grooves de tech house sem limites na DAW</span>
+        </div>
+        <div class="flex items-center gap-2 text-amber-crt">
+          <span>★</span> <span><strong>BÔNUS #1:</strong> 15 Presets de Baixo para Vital & Serum</span>
+        </div>
+        <div class="flex items-center gap-2 text-amber-crt">
+          <span>★</span> <span><strong>BÔNUS #2:</strong> Masterclass de Produção em Vídeo HD</span>
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <span class="text-xs text-slate-400 line-through">De R$ 197,00</span>
+        <div class="text-3xl font-extrabold text-white font-condensed">
+          Por apenas <span class="text-crt">R$ 49,90</span> à vista
+        </div>
+        <span class="text-[11px] font-mono-tech text-slate-400">ou 12x de R$ 5,14 no cartão / Pix com acesso imediato</span>
+      </div>
+
+      <a href="#comprar" onclick="document.getElementById('downloadLimitModal').classList.add('hidden')" class="w-full py-4 px-6 bg-crt hover:bg-emerald-400 text-black font-extrabold text-base uppercase tracking-wider rounded-lg transition shadow-[0_0_25px_rgba(0,255,102,0.6)] pulse-glow-green block font-stencil">
+        DESBLOQUEAR TUDO AGORA
+      </a>
+    </div>
+  </div>
+
+  <!-- STICKY CTA BAR (Aparece ao rolar a página) -->
+  <div id="stickyCtaBar" class="fixed bottom-0 inset-x-0 z-40 bg-metal-950/95 border-t border-crt/50 p-3 sm:p-4 backdrop-blur-md transform translate-y-full transition-transform duration-300 shadow-[0_-10px_30px_rgba(0,0,0,0.8)]">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 px-4">
+      <div class="flex items-center gap-3">
+        <span class="w-3 h-3 rounded-full bg-crt animate-ping"></span>
+        <div>
+          <span class="text-sm font-bold text-white font-condensed uppercase block">MADBASS VST3 + 2 SUPER BÔNUS INCLUSOS</span>
+          <span class="text-xs font-mono-tech text-crt">Por apenas 12x de R$ 5,14 ou R$ 49,90 à vista (Acesso Vitalício)</span>
+        </div>
+      </div>
+      <a href="#comprar" class="w-full sm:w-auto px-6 py-2.5 bg-crt hover:bg-emerald-400 text-black font-extrabold text-sm uppercase tracking-wider rounded transition shadow-[0_0_20px_rgba(0,255,102,0.5)] font-stencil whitespace-nowrap text-center">
+        Comprar Agora
+      </a>
+    </div>
+  </div>
+
+<footer class="bg-black border-t border-metal-border/80 py-12 text-slate-400 text-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-6 pb-8 border-b border-metal-border/60">
+        <div class="flex items-center gap-3">
+          <img src="./images/madbass_header_logo.jpg" alt="MadBass Logo" class="h-8 object-contain">
+          <span class="font-mono-tech text-slate-500">| NLabs by Nadoti</span>
+        </div>
+        <div class="flex items-center gap-6 font-mono-tech">
+          <a href="#simulador" class="hover:text-crt transition">Simulador</a>
+          <a href="#recursos" class="hover:text-crt transition">Recursos</a>
+          <a href="#comprar" class="hover:text-crt transition">Comprar</a>
+          <a href="#faq" class="hover:text-crt transition">FAQ</a>
+        </div>
+      </div>
+
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] font-mono-tech text-slate-500">
+        <p>© 2026 MadBass · Criado por Nadoti / NLabs. Construído com framework JUCE. Todos os direitos reservados.</p>
+        <p>VST é marca registrada da Steinberg Media Technologies GmbH. Ableton Live é marca da Ableton AG. FL Studio é marca da Image-Line.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Script de Produção Otimizado e Protegido -->
+  <script src="./bundle.min.js"></script>
+</body>
+</html>

@@ -28,3 +28,4 @@ Landing page de alta conversão e simulador interativo em tempo real para o **MA
 3. Clique em **Deploy**.
 
 © 2026 NLabs by Nadoti. Todos os direitos reservados.
+
