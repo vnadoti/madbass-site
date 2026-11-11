@@ -1,0 +1,35 @@
+# =========================================================================
+# MADBASS - ARQUIVOS CONFIDENCIAIS E DE DESENVOLVIMENTO
+# Protege a propriedade intelectual e algoritmos internos do plugin VST3
+# =========================================================================
+
+# Código-fonte proprietário com comentários e fórmulas dos algoritmos
+generator.js
+app.js
+audio-engine.js
+midi-writer.js
+bundle.js
+
+# Scripts utilitários de extração e caminhos internos locais
+extract-images.js
+extract-info.js
+*.pdf
+*.log
+
+# Dependências e caches de build
+node_modules/
+package-lock.json
+.pnpm-store/
+
+# Arquivos do Vercel e ambiente
+.vercel
+.env*
+*.local
+
+# Arquivos de sistema e editores
+.DS_Store
+Thumbs.db
+*.swp
+*.bak
+.vscode/
+.idea/

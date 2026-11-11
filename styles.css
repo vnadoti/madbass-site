@@ -1,0 +1,260 @@
+/* =========================================================================
+   MADBASS - CSS STYLESHEET
+   Estética: Industrial, Dieselpunk, Fósforo CRT Verde, Hazard Stripes, Metal
+   ========================================================================= */
+
+@font-face {
+  font-family: 'Saira Stencil One';
+  src: url('./fonts/SairaStencilOne-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Share Tech Mono';
+  src: url('./fonts/ShareTechMono-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Barlow Condensed';
+  src: url('./fonts/BarlowCondensed-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --color-crt-green: #00ff66;
+  --color-crt-green-glow: rgba(0, 255, 102, 0.45);
+  --color-crt-bg: #031508;
+  --color-amber: #ffb000;
+  --color-amber-glow: rgba(255, 176, 0, 0.45);
+  --color-hazard-yellow: #f59e0b;
+  --color-hazard-dark: #18181b;
+  --color-chassis: #1a1e24;
+  --color-metal-edge: #2e3846;
+  --color-rust: #8b4513;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #090c10;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1f2937;
+  border-radius: 5px;
+  border: 1px solid #374151;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #00ff66;
+  box-shadow: 0 0 10px rgba(0, 255, 102, 0.5);
+}
+
+/* Font Classes */
+.font-stencil {
+  font-family: 'Saira Stencil One', Impact, sans-serif;
+  letter-spacing: 0.05em;
+}
+
+.font-mono-tech {
+  font-family: 'Share Tech Mono', monospace;
+}
+
+.font-condensed {
+  font-family: 'Barlow Condensed', sans-serif;
+}
+
+/* CRT Display Tube Effects */
+.crt-screen {
+  background: radial-gradient(circle at 50% 50%, #062211 0%, #020c06 100%);
+  border: 4px solid #14281a;
+  box-shadow: inset 0 0 25px rgba(0, 0, 0, 0.8), 0 0 15px rgba(0, 255, 102, 0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+.crt-screen::before {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.35) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+  z-index: 10;
+  background-size: 100% 3px, 6px 100%;
+  pointer-events: none;
+}
+
+.crt-glow-text {
+  color: var(--color-crt-green);
+  text-shadow: 0 0 6px rgba(0, 255, 102, 0.8), 0 0 12px rgba(0, 255, 102, 0.4);
+}
+
+.crt-amber-text {
+  color: var(--color-amber);
+  text-shadow: 0 0 6px rgba(255, 176, 0, 0.8), 0 0 12px rgba(255, 176, 0, 0.4);
+}
+
+/* Hazard Stripes Pattern */
+.hazard-stripes {
+  background: repeating-linear-gradient(-45deg,
+      #eab308,
+      #eab308 16px,
+      #18181b 16px,
+      #18181b 32px);
+}
+
+.hazard-stripes-slim {
+  background: repeating-linear-gradient(-45deg,
+      #eab308,
+      #eab308 8px,
+      #18181b 8px,
+      #18181b 16px);
+}
+
+/* Industrial Bevel & Plates */
+.metal-plate {
+  background: linear-gradient(135deg, #1e242d 0%, #15191f 100%);
+  border: 1px solid #323b49;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.metal-border {
+  border: 2px solid #374151;
+  box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.07), inset -1px -1px 0 rgba(0, 0, 0, 0.5);
+}
+
+/* Bolted Corner Rivets */
+.rivet {
+  width: 8px;
+  height: 8px;
+  background: radial-gradient(circle at 30% 30%, #5f6b7d 0%, #1f242d 70%);
+  border-radius: 50%;
+  box-shadow: inset 1px 1px 1px rgba(255, 255, 255, 0.4), 0 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+/* Mechanical Lever Interactive Animation */
+.lever-container {
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.1s ease;
+}
+
+.lever-handle {
+  transition: transform 0.22s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transform-origin: top center;
+}
+
+.lever-pulled .lever-handle {
+  transform: translateY(65px) scaleY(0.92);
+}
+
+/* Glowing Neon LEDs */
+.led-red-off {
+  background: #3f1212;
+  box-shadow: inset 0 0 4px #000;
+  border: 1px solid #200808;
+}
+
+.led-red-on {
+  background: #ef4444;
+  box-shadow: 0 0 12px #ef4444, inset 0 0 3px #fff;
+  border: 1px solid #f87171;
+}
+
+.led-green-on {
+  background: #10b981;
+  box-shadow: 0 0 12px #10b981, inset 0 0 3px #fff;
+  border: 1px solid #34d399;
+}
+
+.led-amber-on {
+  background: #f59e0b;
+  box-shadow: 0 0 12px #f59e0b, inset 0 0 3px #fff;
+  border: 1px solid #fbbf24;
+}
+
+/* Pulse animation for CTA */
+@keyframes cta-pulse {
+
+  0%,
+  100% {
+    box-shadow: 0 0 20px rgba(0, 255, 102, 0.4), 0 0 40px rgba(0, 255, 102, 0.2);
+  }
+
+  50% {
+    box-shadow: 0 0 30px rgba(0, 255, 102, 0.7), 0 0 60px rgba(0, 255, 102, 0.35);
+  }
+}
+
+.pulse-glow-green {
+  animation: cta-pulse 2.2s infinite;
+}
+
+/* Interactive Knob */
+.knob-wheel {
+  position: relative;
+  background: radial-gradient(circle at 40% 40%, #3a4454 0%, #151921 70%);
+  border: 2px solid #475569;
+  border-radius: 50%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.2);
+  cursor: ns-resize;
+  transition: border-color 0.15s ease;
+}
+
+.knob-wheel:hover {
+  border-color: #00ff66;
+}
+
+.knob-pointer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 4px;
+  height: 44%;
+  background: #ffb000;
+  box-shadow: 0 0 6px #ffb000;
+  border-radius: 2px;
+  transform-origin: center bottom;
+  pointer-events: none;
+}
+
+/* DRAG MIDI Zone Animation */
+@keyframes drag-border-pulse {
+
+  0%,
+  100% {
+    border-color: #00ff66;
+    box-shadow: 0 0 15px rgba(0, 255, 102, 0.2);
+  }
+
+  50% {
+    border-color: #34d399;
+    box-shadow: 0 0 25px rgba(0, 255, 102, 0.45);
+  }
+}
+
+.drag-zone-active {
+  animation: drag-border-pulse 1.8s infinite;
+}
+
+/* FAQ Accordion Transitions */
+.faq-content {
+  transition: opacity 0.25s ease-in-out;
+}
+
+.faq-trigger {
+  cursor: pointer;
+}
