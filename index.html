@@ -161,7 +161,7 @@
           </div>
           <div class="flex items-center gap-2">
             <svg class="w-4 h-4 text-crt" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-            <span>Instalação Rápida em 1 Minuto</span>
+            <span>Instalação Manual Limpa (VST3 + Standalone)</span>
           </div>
         </div>
       </div>
@@ -1099,7 +1099,7 @@
       </div>
 
       <p class="text-xs font-mono-tech text-slate-500 mt-6">
-        Requisitos: Windows 10 ou 11 (64 bits) · Formato VST3 padrão do sistema · Versão Standalone (independente) inclusa!
+        Requisitos: Windows 10 ou 11 (64 bits) · Instalação Manual Limpa (basta copiar o arquivo .vst3 na pasta padrão) · Versão Standalone portátil inclusa!
       </p>
 
     </div>
@@ -1293,7 +1293,7 @@
             </div>
 
             <!-- Botão Comprar Principal -->
-            <a href="https://pay.hotmart.com" target="_blank" class="w-full py-4 px-6 bg-crt hover:bg-emerald-400 text-black font-extrabold text-lg uppercase tracking-wider rounded-lg transition shadow-[0_0_30px_rgba(0,255,102,0.6)] pulse-glow-green block mt-6">
+            <a href="https://pay.hotmart.com/U108492416M" target="_blank" rel="noopener noreferrer" class="w-full py-4 px-6 bg-crt hover:bg-emerald-400 text-black font-extrabold text-lg uppercase tracking-wider rounded-lg transition shadow-[0_0_30px_rgba(0,255,102,0.6)] pulse-glow-green block mt-6">
               <span class="font-stencil">COMPRAR MADBASS AGORA</span>
             </a>
 
@@ -1380,14 +1380,25 @@
         <!-- FAQ 3 -->
         <div class="faq-item bg-metal-900 border border-metal-border rounded-lg overflow-hidden transition hover:border-slate-500">
           <button type="button" onclick="toggleFaq(this)" class="w-full p-5 text-left flex items-center justify-between text-white font-bold font-condensed text-lg uppercase hover:text-crt transition cursor-pointer select-none">
-            <span class="pr-4">Como funciona a instalação no Windows?</span>
+            <span class="pr-4">Como funciona a instalação no Windows? Precisa de setup.exe?</span>
             <span class="w-8 h-8 rounded-full bg-metal-950 border border-metal-border flex items-center justify-center shrink-0">
               <svg class="faq-icon w-4 h-4 text-crt transition-transform duration-300 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
             </span>
           </button>
           <div class="faq-content hidden px-5 pb-5 pt-2 text-sm text-slate-300 leading-relaxed border-t border-metal-border/50 bg-metal-950/40">
-            <p>
-              A instalação leva menos de 1 minuto. Você receberá o instalador executável oficial <code>MadBass-Setup.exe</code>. Basta avançar os passos e ele instalará automaticamente a pasta VST3 no diretório padrão do Windows (<code class="text-crt font-mono-tech">C:\Program Files\Common Files\VST3\MadBass.vst3</code>). Ao abrir a sua DAW, basta fazer um rescan de plugins.
+            <p class="mb-3">
+              <strong>Não há nenhum instalador invasivo (setup.exe)</strong> poluindo seu sistema ou modificando o registro do Windows. A instalação é <strong>100% manual, limpa e leva menos de 1 minuto</strong>:
+            </p>
+            <ul class="space-y-2.5 list-disc list-inside text-slate-300 mb-3">
+              <li>
+                <strong>Versão VST3 (<code class="text-crt font-mono-tech">MadBass.vst3</code>):</strong> Basta copiar e colar esse arquivo diretamente na pasta padrão de VST3 do seu Windows (<code class="text-crt font-mono-tech">C:\Program Files\Common Files\VST3\</code>). Ao abrir sua DAW (Ableton Live, FL Studio, Reaper, etc.), faça um rescan rápido de plugins e ele aparecerá pronto para usar.
+              </li>
+              <li>
+                <strong>Versão Standalone (<code class="text-crt font-mono-tech">MadBass.exe</code>):</strong> Um aplicativo executável independente e portátil. Você pode deixá-lo na sua Área de Trabalho ou em qualquer pasta e abrir com dois cliques direto — perfeito para rabiscar grooves e exportar MIDIs rapidamente mesmo sem abrir a DAW!
+              </li>
+            </ul>
+            <p class="text-xs text-slate-400 font-mono-tech">
+              * Acompanha um guia em PDF ilustrado com o passo a passo simplificado para qualquer produtor.
             </p>
           </div>
         </div>
@@ -1432,10 +1443,100 @@
           </button>
           <div class="faq-content hidden px-5 pb-5 pt-2 text-sm text-slate-300 leading-relaxed border-t border-metal-border/50 bg-metal-950/40">
             <p>
-              O envio é <strong>100% automático e imediato</strong>. Assim que o pagamento for aprovado (Pix ou cartão), você receberá um email com os links diretos para download do instalador, da chave de ativação e dos dois pacotes de bônus exclusivos (15 Presets para Vital & Serum + Masterclass em Vídeo HD).
+              O envio é <strong>100% automático e imediato</strong>. Assim que o pagamento for aprovado (Pix ou cartão), você receberá um email com os links diretos para download do arquivo VST3, do aplicativo Standalone portátil e dos dois pacotes de bônus exclusivos (15 Presets para Vital & Serum + Masterclass em Vídeo HD).
             </p>
           </div>
         </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SEÇÃO ECOSSISTEMA NLABS: CONHEÇA O DAW MANAGER
+       ========================================================================= -->
+  <section class="py-20 bg-gradient-to-b from-metal-950 via-[#0a0d14] to-black border-t border-metal-border relative overflow-hidden">
+    <!-- Ambient Glows -->
+    <div class="absolute top-1/2 -left-20 -translate-y-1/2 w-96 h-96 bg-crt/10 blur-[130px] rounded-full pointer-events-none"></div>
+    <div class="absolute top-1/2 -right-20 -translate-y-1/2 w-96 h-96 bg-cyan-500/10 blur-[130px] rounded-full pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      
+      <!-- Card Principal do Produto -->
+      <div class="bg-gradient-to-br from-[#121721] via-metal-950 to-[#0b0e14] rounded-2xl border-2 border-metal-border/80 hover:border-cyan-500/50 transition-all duration-300 p-6 sm:p-10 shadow-2xl relative overflow-hidden group">
+        
+        <!-- Parafusos Industriais nos Cantos -->
+        <div class="absolute top-3 left-3 rivet"></div>
+        <div class="absolute top-3 right-3 rivet"></div>
+        <div class="absolute bottom-3 left-3 rivet"></div>
+        <div class="absolute bottom-3 right-3 rivet"></div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          
+          <!-- Coluna da Esquerda: Textos e Recursos (7 colunas) -->
+          <div class="lg:col-span-7 space-y-5">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 font-mono-tech text-xs uppercase tracking-wider font-bold">
+              <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+              ECOSSISTEMA NLABS · NOVO SOFTWARE
+            </div>
+
+            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold uppercase font-condensed tracking-tight text-white leading-tight">
+              Conheça Também: <br>
+              <span class="text-transparent bg-clip-text bg-gradient-to-r from-crt via-emerald-400 to-cyan-400">DAW Manager</span>
+              <span class="text-slate-300 block text-lg sm:text-2xl mt-1 font-semibold normal-case font-sans">Organize todos os seus projetos e finalize mais faixas.</span>
+            </h2>
+
+            <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+              Quantos projetos esquecidos e ideias inacabadas você tem perdidos no seu HD? O <strong>DAW Manager</strong> é o software oficial da NLabs para produtores organizarem projetos de <strong>FL Studio, Ableton Live, Bitwig</strong> e muito mais num só lugar.
+            </p>
+
+            <!-- Lista de Benefícios Rápidos -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs sm:text-sm text-slate-300 font-mono-tech pt-1">
+              <div class="flex items-center gap-2">
+                <span class="text-crt font-bold">✔</span>
+                <span>Quadro Kanban (Ideia → Master)</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-crt font-bold">✔</span>
+                <span>Sample Manager integrado</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-crt font-bold">✔</span>
+                <span>Controle de versões de áudio</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-crt font-bold">✔</span>
+                <span>100% Offline e ultra veloz</span>
+              </div>
+            </div>
+
+            <!-- Botão de Ação -->
+            <div class="pt-4 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+              <a href="https://daw-manager.vercel.app/" target="_blank" rel="noopener noreferrer" class="px-6 py-3.5 bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-black font-extrabold text-sm sm:text-base uppercase tracking-wider rounded-lg transition shadow-[0_0_25px_rgba(6,182,212,0.4)] flex items-center justify-center gap-2.5 font-stencil">
+                <span>CONHECER O DAW MANAGER</span>
+                <svg class="w-4 h-4 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+              </a>
+              <span class="text-xs text-slate-400 font-mono-tech text-center sm:text-left">
+                Teste grátis por 7 dias disponível
+              </span>
+            </div>
+          </div>
+
+          <!-- Coluna da Direita: Preview Visual (5 colunas) -->
+          <div class="lg:col-span-5">
+            <a href="https://daw-manager.vercel.app/" target="_blank" rel="noopener noreferrer" class="group block relative rounded-xl overflow-hidden border border-metal-border shadow-2xl hover:border-cyan-400/70 transition-all duration-300">
+              <img src="./images/daw_manager_library.webp" alt="Interface do DAW Manager" class="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-500">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-4">
+                <span class="text-xs font-mono-tech text-cyan-300 font-bold flex items-center gap-1.5 group-hover:underline">
+                  <span>Acessar daw-manager.vercel.app</span>
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                </span>
+              </div>
+            </a>
+          </div>
+
+        </div>
+
       </div>
 
     </div>
@@ -1488,7 +1589,7 @@
         <span class="text-[11px] font-mono-tech text-slate-400">ou 12x de R$ 5,14 no cartão / Pix com acesso imediato</span>
       </div>
 
-      <a href="#comprar" onclick="document.getElementById('downloadLimitModal').classList.add('hidden')" class="w-full py-4 px-6 bg-crt hover:bg-emerald-400 text-black font-extrabold text-base uppercase tracking-wider rounded-lg transition shadow-[0_0_25px_rgba(0,255,102,0.6)] pulse-glow-green block font-stencil">
+      <a href="https://pay.hotmart.com/U108492416M" target="_blank" rel="noopener noreferrer" onclick="document.getElementById('downloadLimitModal').classList.add('hidden')" class="w-full py-4 px-6 bg-crt hover:bg-emerald-400 text-black font-extrabold text-base uppercase tracking-wider rounded-lg transition shadow-[0_0_25px_rgba(0,255,102,0.6)] pulse-glow-green block font-stencil">
         DESBLOQUEAR TUDO AGORA
       </a>
     </div>
@@ -1517,16 +1618,21 @@
           <img src="./images/madbass_header_logo.jpg" alt="MadBass Logo" class="h-8 object-contain">
           <span class="font-mono-tech text-slate-500">| NLabs by Nadoti</span>
         </div>
-        <div class="flex items-center gap-6 font-mono-tech">
+        <div class="flex flex-wrap items-center gap-6 font-mono-tech">
           <a href="#simulador" class="hover:text-crt transition">Simulador</a>
           <a href="#recursos" class="hover:text-crt transition">Recursos</a>
           <a href="#comprar" class="hover:text-crt transition">Comprar</a>
           <a href="#faq" class="hover:text-crt transition">FAQ</a>
+          <a href="https://daw-manager.vercel.app/" target="_blank" rel="noopener noreferrer" class="text-cyan-400 hover:text-cyan-300 font-bold flex items-center gap-1.5 transition">
+            <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
+            <span>DAW Manager</span>
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          </a>
         </div>
       </div>
 
       <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] font-mono-tech text-slate-500">
-        <p>© 2026 MadBass · Criado por Nadoti / NLabs. Construído com framework JUCE. Todos os direitos reservados.</p>
+        <p>© 2026 MadBass · Criado por Nadoti / NLabs. Conheça também: <a href="https://daw-manager.vercel.app/" target="_blank" rel="noopener noreferrer" class="text-cyan-400 hover:underline">DAW Manager</a>. Todos os direitos reservados.</p>
         <p>VST é marca registrada da Steinberg Media Technologies GmbH. Ableton Live é marca da Ableton AG. FL Studio é marca da Image-Line.</p>
       </div>
     </div>
