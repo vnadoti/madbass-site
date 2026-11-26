@@ -1,6 +1,6 @@
 # MADBASS — Official Landing Page & Web Simulator
 
-Landing page de alta conversão e simulador interativo em tempo real para o **MADBASS by Nadoti (NLabs)**, plugin gerador de basslines MIDI para Tech House (VST3, Windows 10/11 64-bit).
+Landing page de alta conversão e simulador interativo em tempo real para o **MADBASS by Nadoti (NLabs)**, plugin gerador de basslines MIDI para Tech House (Windows 10/11 64-bit: VST3 + Standalone · macOS 11+ Apple Silicon/Intel: AU + VST3 + Standalone).
 
 ## 🚀 Tecnologias
 
